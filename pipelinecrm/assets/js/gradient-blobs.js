@@ -11,9 +11,9 @@
     container.appendChild(canvas);
 
     var blobs = opts.blobs || [
-      { x: 0.25, y: 0.3, r: 450, color: '79,70,229', speed: 0.0006 },
-      { x: 0.7, y: 0.5, r: 400, color: '59,130,246', speed: 0.0008 },
-      { x: 0.5, y: 0.75, r: 380, color: '6,182,212', speed: 0.001 }
+      { x: 0.25, y: 0.3, r: 450, color: '79,70,229', speed: 0.003 },
+      { x: 0.7, y: 0.5, r: 400, color: '59,130,246', speed: 0.004 },
+      { x: 0.5, y: 0.75, r: 380, color: '6,182,212', speed: 0.005 }
     ];
     var time = 0;
     var raf;
@@ -37,9 +37,12 @@
 
       for (var i = 0; i < blobs.length; i++) {
         var b = blobs[i];
-        var bx = w * b.x + Math.sin(time * b.speed + i * 1.7) * w * 0.08;
-        var by = h * b.y + Math.cos(time * b.speed * 1.3 + i * 2.3) * h * 0.08;
-        var gradient = ctx.createRadialGradient(bx, by, 0, bx, by, b.r);
+        var bx = w * b.x + Math.sin(time * b.speed + i * 1.7) * w * 0.12;
+        var by = h * b.y + Math.cos(time * b.speed * 1.3 + i * 2.3) * h * 0.12;
+        // Pulsing radius — breathes between 85% and 115% of base radius
+        var pulse = 1 + Math.sin(time * b.speed * 0.7 + i * 3.1) * 0.15;
+        var r = b.r * pulse;
+        var gradient = ctx.createRadialGradient(bx, by, 0, bx, by, r);
         gradient.addColorStop(0, 'rgba(' + b.color + ',0.5)');
         gradient.addColorStop(0.4, 'rgba(' + b.color + ',0.25)');
         gradient.addColorStop(0.7, 'rgba(' + b.color + ',0.08)');
