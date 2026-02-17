@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../css/design-system.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.12/dist/lottie-player.js" defer></script>
   <style>
     /* ===== NAVIGATION ===== */
     .nav-header {
@@ -450,8 +451,24 @@
       padding: 0 var(--container-padding);
     }
     .benefit-item {
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
       border-left: 3px solid var(--color-primary);
       padding-left: var(--space-4);
+    }
+    .benefit-item__icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+    }
+    .benefit-item__icon lottie-player {
+      width: 48px;
+      height: 48px;
+    }
+    .benefit-item__text {
+      flex: 1;
+      min-width: 0;
     }
     .benefit-item__title {
       font-size: var(--font-size-base);
@@ -655,11 +672,21 @@
       border-radius: var(--radius-md);
       padding: var(--space-8);
       transition: all var(--transition-base);
+      text-align: center;
     }
     .card-service:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-hover);
       border-color: var(--color-border-accent);
+    }
+    .card-service__icon {
+      display: flex;
+      justify-content: center;
+      margin-bottom: var(--space-4);
+    }
+    .card-service__icon lottie-player {
+      width: 120px;
+      height: 120px;
     }
     .card-service__title {
       font-size: var(--font-size-xs);
@@ -1093,40 +1120,85 @@
       </div>
       <div class="benefits-grid fade-in" data-delay="100">
         <div class="benefit-item">
-          <h3 class="benefit-item__title">Kanban boards</h3>
-          <p class="benefit-item__desc">Kanban boards make it easy to organize your sales prospecting workflow, from first outreach to qualification and deal creation.</p>
+          <div class="benefit-item__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/cfa64dac-b08f-11ee-b372-432ea4a02856/EQqV5q6CYt.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="benefit-item__text">
+            <h3 class="benefit-item__title">Kanban boards</h3>
+            <p class="benefit-item__desc">Kanban boards make it easy to organize your sales prospecting workflow, from first outreach to qualification and deal creation.</p>
+          </div>
         </div>
         <div class="benefit-item">
-          <h3 class="benefit-item__title">Custom fields</h3>
-          <p class="benefit-item__desc">Prioritize key customer details by creating up to 25 custom fields for each deal page.</p>
+          <div class="benefit-item__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/5d996c40-1174-11ee-91c9-4f5afa3d157c/7mJGA8RxSk.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="benefit-item__text">
+            <h3 class="benefit-item__title">Custom fields</h3>
+            <p class="benefit-item__desc">Prioritize key customer details by creating up to 25 custom fields for each deal page.</p>
+          </div>
         </div>
         <div class="benefit-item">
-          <h3 class="benefit-item__title">Email campaigns &amp; tracking</h3>
-          <p class="benefit-item__desc">Track all your email messages, opens, clicks, and downloads automatically as activities in your account.</p>
+          <div class="benefit-item__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/eeb274b4-1175-11ee-92e6-bb9500cbaad0/GYdNbNTOuj.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="benefit-item__text">
+            <h3 class="benefit-item__title">Email campaigns &amp; tracking</h3>
+            <p class="benefit-item__desc">Track all your email messages, opens, clicks, and downloads automatically as activities in your account.</p>
+          </div>
         </div>
         <div class="benefit-item">
-          <h3 class="benefit-item__title">Sales forecasting</h3>
-          <p class="benefit-item__desc">When you understand past trends, you'll be able to confidently forecast the salespeople on track to hit quota.</p>
+          <div class="benefit-item__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/46871294-1180-11ee-b1e5-bb535886769b/i40QAPtlBs.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="benefit-item__text">
+            <h3 class="benefit-item__title">Sales forecasting</h3>
+            <p class="benefit-item__desc">When you understand past trends, you'll be able to confidently forecast the salespeople on track to hit quota.</p>
+          </div>
         </div>
         <div class="benefit-item">
-          <h3 class="benefit-item__title">Track commissions</h3>
-          <p class="benefit-item__desc">Automate sales commissions to reduce cost and increase transparency for remote sales teams.</p>
+          <div class="benefit-item__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/bed313c4-117b-11ee-a434-2f40811fa5fe/AcXjr9bPxO.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="benefit-item__text">
+            <h3 class="benefit-item__title">Track commissions</h3>
+            <p class="benefit-item__desc">Automate sales commissions to reduce cost and increase transparency for remote sales teams.</p>
+          </div>
         </div>
         <div class="benefit-item">
-          <h3 class="benefit-item__title">Custom deal stages</h3>
-          <p class="benefit-item__desc">Choose default titles (Qualified Lead, Proposal, Contract, Signed) or customize them for your team.</p>
+          <div class="benefit-item__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/db9f4436-118b-11ee-bcb4-bb15fe6e80c3/gMx89fXecl.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="benefit-item__text">
+            <h3 class="benefit-item__title">Custom deal stages</h3>
+            <p class="benefit-item__desc">Choose default titles (Qualified Lead, Proposal, Contract, Signed) or customize them for your team.</p>
+          </div>
         </div>
         <div class="benefit-item">
-          <h3 class="benefit-item__title">Unlimited files storage</h3>
-          <p class="benefit-item__desc">Enjoy unlimited data storage for all documents, images, and records with no extra charges.</p>
+          <div class="benefit-item__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/16e9ac8c-1161-11ee-955c-9b6c38f4ac44/yjBVRU4sp4.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="benefit-item__text">
+            <h3 class="benefit-item__title">Unlimited files storage</h3>
+            <p class="benefit-item__desc">Enjoy unlimited data storage for all documents, images, and records with no extra charges.</p>
+          </div>
         </div>
         <div class="benefit-item">
-          <h3 class="benefit-item__title">User permissions</h3>
-          <p class="benefit-item__desc">Assign permissions for your team members to set what they can see and do within the application.</p>
+          <div class="benefit-item__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/59316726-117d-11ee-a0d1-8fe186a07308/NzmiE1kLJk.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="benefit-item__text">
+            <h3 class="benefit-item__title">User permissions</h3>
+            <p class="benefit-item__desc">Assign permissions for your team members to set what they can see and do within the application.</p>
+          </div>
         </div>
         <div class="benefit-item">
-          <h3 class="benefit-item__title">Support &amp; setup assistance</h3>
-          <p class="benefit-item__desc">Our success team provides guidance to help you configure Pipeline CRM for effective prospect management and streamlined sales execution.</p>
+          <div class="benefit-item__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/49245dbe-1170-11ee-9e4f-4f7a407e333c/sEYh852F1D.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="benefit-item__text">
+            <h3 class="benefit-item__title">Support &amp; setup assistance</h3>
+            <p class="benefit-item__desc">Our success team provides guidance to help you configure Pipeline CRM for effective prospect management and streamlined sales execution.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1228,16 +1300,25 @@
       </div>
       <div class="services-grid">
         <div class="card-service fade-in" data-delay="0">
+          <div class="card-service__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/f09a70fe-1163-11ee-b7e3-7f790272213b/CWAwmyELR9.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
           <h3 class="card-service__title">Pipeline CRM Onboarding</h3>
           <p class="card-service__desc">Our Customer Success team provides tailored training and support for a smooth CRM implementation.</p>
           <a href="https://pipelinecrm.com/features/onboarding-services/" class="card-service__link">Discover more &rarr;</a>
         </div>
         <div class="card-service fade-in" data-delay="100">
+          <div class="card-service__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/847dbbd0-f454-11ef-9aa7-d3a52ab70f0d/p4IRK2qmHE.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
           <h3 class="card-service__title">Free Data Migration</h3>
           <p class="card-service__desc">New to Pipeline CRM? We've got you covered! We offer free data migration and a smooth onboarding process.</p>
           <a href="https://pipelinecrm.com/crm-data-migration/" class="card-service__link">Discover more &rarr;</a>
         </div>
         <div class="card-service fade-in" data-delay="200">
+          <div class="card-service__icon">
+            <lottie-player src="https://assets-v2.lottiefiles.com/a/7483910c-116e-11ee-bbe3-6399fee5d3f5/b3bW9WoxIu.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
           <h3 class="card-service__title">Knowledge Base</h3>
           <p class="card-service__desc">Find answers fast with Pipeline CRM Help Center. Access guides, FAQs to maximize your CRM experience.</p>
           <a href="https://help.pipelinecrm.com/" class="card-service__link">Discover more &rarr;</a>
