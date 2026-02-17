@@ -352,6 +352,15 @@ button {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+/* When text-reveal wraps words in inline-block spans, background-clip:text
+   on the parent can't clip through them. Propagate gradient to inner spans. */
+.gradient-text .word-reveal__inner {
+  background: var(--gradient-text);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
 /* === Buttons === */
 .btn {
