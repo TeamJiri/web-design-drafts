@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Web Design Studio | Design Drafts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0A0A0F;
+  --elevated: #12121A;
+  --subtle: #1A1A26;
+  --orange: #E15C34;
+  --purple: #A375FF;
+  --text: #EAEAF0;
+  --secondary: #9494A8;
+  --muted: #55556A;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Nav */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(234, 234, 240, 0.06);
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.nav-logo span { color: var(--orange); }
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  background: var(--subtle);
+  border-color: rgba(234, 234, 240, 0.06);
+}
+
+.nav-links a.active {
+  color: var(--text);
+  background: var(--subtle);
+  border-color: rgba(234, 234, 240, 0.1);
+}
+
+/* Main content */
+.main {
+  padding: 120px 32px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero-text {
+  margin-bottom: 64px;
+}
+
+.hero-text h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.hero-text h1 span { color: var(--orange); }
+
+.hero-text p {
+  font-size: 17px;
+  color: var(--secondary);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+/* Design cards grid */
+.designs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 24px;
+}
+
+.design-card {
+  background: var(--elevated);
+  border: 1px solid rgba(234, 234, 240, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.design-card:hover {
+  border-color: rgba(225, 92, 52, 0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.design-preview {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.design-preview iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5);
+  transform-origin: top left;
+  border: none;
+  pointer-events: none;
+}
+
+.design-info {
+  padding: 24px;
+}
+
+.design-info h2 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+
+.design-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.design-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(163, 117, 255, 0.1);
+  color: var(--purple);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.design-date {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.design-desc {
+  font-size: 14px;
+  color: var(--secondary);
+  line-height: 1.6;
+}
+
+.design-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--orange);
+  transition: gap 0.2s ease;
+}
+
+.design-card:hover .design-link {
+  gap: 10px;
+}
+
+/* Empty state */
+.empty-state {
+  padding: 80px 32px;
+  text-align: center;
+  color: var(--muted);
+  border: 2px dashed rgba(234, 234, 240, 0.06);
+  border-radius: 16px;
+  grid-column: 1 / -1;
+}
+
+.empty-state p {
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+/* Footer */
+.footer {
+  padding: 40px 32px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  border-top: 1px solid rgba(234, 234, 240, 0.06);
+  margin-top: 80px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .designs-grid {
+    grid-template-columns: 1fr;
+  }
+  .nav-links {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .main {
+    padding: 100px 16px 40px;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Design<span>.</span>Studio</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="active">All Designs</a></li>
+    <!-- Design links are auto-populated by JS below -->
+  </ul>
+</nav>
+
+<main class="main">
+  <div class="hero-text">
+    <h1>Homepage Design<span>.</span> Drafts</h1>
+    <p>Internal design explorations for review. Each draft is a fully interactive, production-grade homepage concept.</p>
+  </div>
+
+  <div class="designs-grid" id="designsGrid">
+    <!-- Cards populated by JS from the designs manifest -->
+  </div>
+</main>
+
+<div class="footer">
+  Web Design Studio &middot; Internal use only &middot; Do not distribute
+</div>
+
+<script>
+// ============================================================
+// DESIGNS MANIFEST
+// Add new designs here. The index page auto-generates everything.
+// ============================================================
+var designs = [
+  {
+    name: "saas.group",
+    file: "saasgroup-homepage.html",
+    category: "SaaS / Holding Company",
+    date: "2026-02-16",
+    description: "\"The Quiet Engine\" — Dark-themed redesign for saas.group with animated constellation, particle field, bento portfolio grid with mouse-tracking glow, fake product UI mockups, and scroll-driven storytelling."
+  },
+  {
+    name: "Flowbase",
+    file: "flowbase-homepage.html",
+    category: "SaaS / Automation",
+    date: "2026-02-16",
+    description: "Dark premium homepage for Flowbase with animated background canvas, feature bento grid, and scroll-triggered reveal animations."
+  }
+];
+
+// Build nav links
+var navLinks = document.getElementById('navLinks');
+designs.forEach(function(d, i) {
+  var li = document.createElement('li');
+  var a = document.createElement('a');
+  a.href = d.file;
+  a.textContent = 'Design ' + (i + 1) + ': ' + d.name;
+  li.appendChild(a);
+  navLinks.appendChild(li);
+});
+
+// Build design cards
+var grid = document.getElementById('designsGrid');
+designs.forEach(function(d, i) {
+  var card = document.createElement('a');
+  card.href = d.file;
+  card.className = 'design-card';
+  card.innerHTML =
+    '<div class="design-preview"><iframe src="' + d.file + '" loading="lazy" sandbox="allow-same-origin" title="Preview of ' + d.name + '"></iframe></div>' +
+    '<div class="design-info">' +
+      '<div class="design-meta">' +
+        '<span class="design-pill">' + d.category + '</span>' +
+        '<span class="design-date">' + d.date + '</span>' +
+      '</div>' +
+      '<h2>' + d.name + '</h2>' +
+      '<p class="design-desc">' + d.description + '</p>' +
+      '<span class="design-link">View full design <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>' +
+    '</div>';
+  grid.appendChild(card);
+});
+
+if (designs.length === 0) {
+  grid.innerHTML = '<div class="empty-state"><h3>No designs yet</h3><p>Run the Web Design Team workflow to generate your first homepage draft.</p></div>';
+}
+</script>
+
+</body>
+</html>
