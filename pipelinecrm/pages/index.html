@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pipeline CRM - CRM Software for sales teams (PipelineDeals)</title>
+  <meta name="description" content="A cloud-based sales CRM platform that offers easy setup, integrations, customization, and intuitive tools.">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    /* ===== NAVIGATION ===== */
+    .nav-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: var(--nav-initial-wrapper-padding);
+      transition: padding var(--transition-nav);
+    }
+    .nav-header--scrolled {
+      padding: var(--nav-scrolled-wrapper-padding);
+    }
+    .nav-header__inner {
+      display: flex;
+      align-items: center;
+      max-width: var(--nav-initial-max-width);
+      margin: 0 auto;
+      background: var(--nav-initial-bg);
+      backdrop-filter: blur(var(--nav-initial-blur));
+      -webkit-backdrop-filter: blur(var(--nav-initial-blur));
+      border: 1px solid transparent;
+      border-bottom: 1px solid var(--nav-initial-border);
+      border-radius: var(--nav-initial-radius);
+      padding: var(--nav-initial-padding);
+      transition: all var(--transition-nav);
+    }
+    .nav-header--scrolled .nav-header__inner {
+      max-width: var(--nav-scrolled-max-width);
+      background: var(--nav-scrolled-bg);
+      backdrop-filter: blur(var(--nav-scrolled-blur));
+      -webkit-backdrop-filter: blur(var(--nav-scrolled-blur));
+      border: 1px solid var(--nav-scrolled-border);
+      border-bottom: 1px solid var(--nav-scrolled-border);
+      border-radius: var(--nav-scrolled-radius);
+      padding: var(--nav-scrolled-padding);
+      box-shadow: var(--nav-scrolled-shadow);
+    }
+    .nav-header__logo img {
+      height: 28px;
+      width: auto;
+    }
+    .nav-header__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .nav-header__links a {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      transition: color var(--transition-fast);
+      white-space: nowrap;
+    }
+    .nav-header__links a:hover { color: var(--color-primary); }
+    .nav-header__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .nav-header__signin {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+    }
+    .nav-header__signin:hover { color: var(--color-primary); }
+    .nav-header__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      padding: var(--space-2);
+      cursor: pointer;
+    }
+    .nav-header__hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--color-text-primary);
+      border-radius: 2px;
+      transition: all var(--transition-fast);
+    }
+
+    /* Mobile nav */
+    .nav-mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+    .nav-mobile-overlay.active { opacity: 1; }
+    .nav-mobile-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: 300px;
+      height: 100%;
+      background: var(--color-surface);
+      z-index: 1001;
+      padding: var(--space-8) var(--space-6);
+      transform: translateX(100%);
+      transition: transform var(--transition-base);
+      overflow-y: auto;
+    }
+    .nav-mobile-drawer.active { transform: translateX(0); }
+    .nav-mobile-drawer__close {
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-4);
+      background: none;
+      font-size: var(--font-size-xl);
+      color: var(--color-text-secondary);
+      padding: var(--space-2);
+      cursor: pointer;
+    }
+    .nav-mobile-drawer a {
+      display: block;
+      padding: var(--space-3) 0;
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .nav-mobile-drawer a:hover { color: var(--color-primary); }
+    .nav-mobile-drawer .btn {
+      width: 100%;
+      margin-top: var(--space-4);
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .nav-header__links,
+      .nav-header__actions { display: none; }
+      .nav-header__hamburger { display: flex; }
+      .nav-mobile-overlay { display: block; }
+    }
+
+    /* ===== HERO ===== */
+    .section-hero {
+      padding: 10rem 0 var(--space-section);
+      position: relative;
+      overflow: hidden;
+      background-image:
+        linear-gradient(to bottom, rgba(250, 251, 253, 0.82), rgba(250, 251, 253, 0.92)),
+        url('../assets/images/hero-background.png');
+      background-size: cover;
+      background-position: center;
+    }
+    .section-hero__container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    .section-hero__heading {
+      font-size: var(--font-size-hero);
+      font-weight: var(--font-weight-extrabold);
+      letter-spacing: var(--letter-spacing-tight);
+      line-height: var(--line-height-tight);
+      margin-bottom: var(--space-6);
+    }
+    .section-hero__subheading {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-body);
+      max-width: 520px;
+      margin-bottom: var(--space-8);
+    }
+    .section-hero__ctas {
+      display: flex;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+      flex-wrap: wrap;
+    }
+    .section-hero__badges {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .section-hero__media img {
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+    }
+    /* Hero ambient glow */
+    .section-hero__glow-1 {
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--glow-hero-1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: glowFloat 20s ease-in-out infinite;
+    }
+    .section-hero__glow-2 {
+      position: absolute;
+      bottom: -150px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--glow-hero-2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: glowFloat2 25s ease-in-out infinite;
+    }
+    @media (max-width: 768px) {
+      .section-hero { padding: 7rem 0 var(--space-section); }
+      .section-hero__container { grid-template-columns: 1fr; text-align: center; }
+      .section-hero__subheading { max-width: 100%; margin-left: auto; margin-right: auto; }
+      .section-hero__ctas { justify-content: center; }
+      .section-hero__badges { justify-content: center; }
+    }
+
+    /* ===== FEATURES TABS ===== */
+    .section-features-tabs {
+      padding: var(--space-section) 0;
+      position: relative;
+      z-index: 2;
+    }
+    .section-features-tabs__header {
+      text-align: center;
+      margin-bottom: var(--space-10);
+    }
+    .section-features-tabs__sub {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+      max-width: 640px;
+      margin: var(--space-4) auto 0;
+      line-height: var(--line-height-body);
+    }
+    .tabs-bar {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-10);
+      flex-wrap: wrap;
+    }
+    .tabs-bar__tab {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-pill);
+      background: var(--color-bg-alt);
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .tabs-bar__tab:hover {
+      background: var(--color-primary-subtle);
+      color: var(--color-primary);
+      border-color: var(--color-border-accent);
+    }
+    .tabs-bar__tab.active {
+      background: var(--color-primary);
+      color: var(--color-text-on-accent);
+      border-color: var(--color-primary);
+    }
+    .tab-panel {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+      animation: fadeInUp 0.4s ease-out;
+    }
+    .tab-panel.active { display: grid; }
+    .tab-panel__text h3 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-4);
+    }
+    .tab-panel__text p {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-body);
+      margin-bottom: var(--space-6);
+    }
+    .tab-panel__image img {
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+    @media (max-width: 768px) {
+      .tab-panel { grid-template-columns: 1fr; }
+      .tab-panel.active { display: grid; }
+    }
+
+    /* ===== STATS ===== */
+    .section-stats {
+      padding: var(--space-section) 0;
+      background: var(--color-bg-alt);
+      position: relative;
+      z-index: 2;
+    }
+    .section-stats__header { text-align: center; margin-bottom: var(--space-10); }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    .stat-item {
+      text-align: center;
+      padding: var(--space-6);
+      position: relative;
+    }
+    .stat-item + .stat-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 20%;
+      height: 60%;
+      width: 1px;
+      background: var(--color-border);
+    }
+    .stat-item__value {
+      font-size: var(--font-size-5xl);
+      font-weight: var(--font-weight-bold);
+      line-height: 1;
+      margin-bottom: var(--space-2);
+    }
+    .stat-item__label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-medium);
+    }
+    /* Radial glow behind stats */
+    .section-stats__glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, var(--glow-stats) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(3)::before { display: none; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-item + .stat-item::before { display: none; }
+    }
+
+    /* ===== FEATURE GRID ===== */
+    .section-feature-grid {
+      padding: var(--space-section) 0;
+      background: var(--color-bg-alt);
+      position: relative;
+      z-index: 2;
+    }
+    .section-feature-grid__header {
+      text-align: center;
+      margin-bottom: var(--space-10);
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    .card-feature {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all var(--transition-base);
+    }
+    .card-feature:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--color-border-accent);
+    }
+    .card-feature__image {
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      background: var(--color-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4);
+    }
+    .card-feature__image img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .card-feature__body {
+      padding: var(--space-6);
+    }
+    .card-feature__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+    .card-feature__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+      line-height: var(--line-height-body);
+    }
+    .card-feature__link {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .card-feature__link:hover { gap: var(--space-2); }
+    @media (max-width: 1024px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .feature-grid { grid-template-columns: 1fr; } }
+
+    /* ===== BENEFITS ===== */
+    .section-benefits {
+      padding: var(--space-section) 0;
+      position: relative;
+      z-index: 2;
+    }
+    .section-benefits__header { text-align: center; margin-bottom: var(--space-10); }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    .benefit-item {
+      border-left: 3px solid var(--color-primary);
+      padding-left: var(--space-4);
+    }
+    .benefit-item__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+    .benefit-item__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-body);
+    }
+    @media (max-width: 768px) { .benefits-grid { grid-template-columns: 1fr; } }
+
+    /* ===== SOCIAL PROOF ===== */
+    .section-social-proof {
+      padding: var(--space-section) 0;
+      position: relative;
+      z-index: 2;
+    }
+    .section-social-proof__header { text-align: center; margin-bottom: var(--space-10); }
+    .section-social-proof__trust {
+      font-size: var(--font-size-base);
+      color: var(--color-text-muted);
+      margin-top: var(--space-2);
+    }
+    .logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-10);
+      flex-wrap: wrap;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    .logos-row img {
+      max-height: 40px;
+      width: auto;
+      filter: grayscale(1);
+      opacity: 0.5;
+      transition: all var(--transition-base);
+    }
+    .logos-row img:hover {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+
+    /* ===== BLOG RESOURCES ===== */
+    .section-blog {
+      padding: var(--space-section) 0;
+      background: var(--color-bg-alt);
+      position: relative;
+      z-index: 2;
+    }
+    .section-blog__header { text-align: center; margin-bottom: var(--space-10); }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    .card-blog {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all var(--transition-base);
+    }
+    .card-blog:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .card-blog__image {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+    .card-blog__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card-blog__body { padding: var(--space-6); }
+    .card-blog__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+      line-height: var(--line-height-snug);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-blog__excerpt {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      line-height: var(--line-height-body);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) { .blog-grid { grid-template-columns: 1fr; } }
+
+    /* ===== TRUST ===== */
+    .section-trust {
+      padding: var(--space-section) 0;
+      position: relative;
+      z-index: 2;
+    }
+    .section-trust__header { text-align: center; margin-bottom: var(--space-10); }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    .card-trust {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-8);
+      text-align: center;
+      transition: all var(--transition-base);
+    }
+    .card-trust:hover { box-shadow: var(--shadow-md); }
+    .card-trust__image {
+      max-height: 120px;
+      margin: 0 auto var(--space-6);
+    }
+    .card-trust__title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+    }
+    .card-trust__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-body);
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    @media (max-width: 640px) { .trust-grid { grid-template-columns: 1fr; } }
+
+    /* ===== INTEGRATIONS ===== */
+    .section-integrations {
+      padding: var(--space-section) 0;
+      position: relative;
+      z-index: 2;
+    }
+    .section-integrations__header { text-align: center; margin-bottom: var(--space-10); }
+    .integrations-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-10);
+      flex-wrap: wrap;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    .integrations-row img {
+      max-height: 40px;
+      width: auto;
+      filter: grayscale(0.3);
+      opacity: 0.7;
+      transition: all var(--transition-base);
+    }
+    .integrations-row img:hover {
+      filter: grayscale(0);
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    /* ===== SERVICES ===== */
+    .section-services {
+      padding: var(--space-section) 0;
+      background: var(--color-bg-alt);
+      position: relative;
+      z-index: 2;
+    }
+    .section-services__header { text-align: center; margin-bottom: var(--space-10); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    .card-service {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-8);
+      transition: all var(--transition-base);
+    }
+    .card-service:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--color-border-accent);
+    }
+    .card-service__title {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: var(--letter-spacing-widest);
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+    .card-service__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-body);
+      margin-bottom: var(--space-6);
+    }
+    .card-service__link {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .card-service__link:hover { gap: var(--space-2); }
+    @media (max-width: 768px) { .services-grid { grid-template-columns: 1fr; } }
+
+    /* ===== CTA BANNER ===== */
+    .section-cta-banner {
+      padding: 6.25rem 0;
+      background-image:
+        linear-gradient(135deg, rgba(79, 70, 229, 0.75), rgba(59, 130, 246, 0.75)),
+        url('../assets/images/cta-background.png');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .section-cta-banner__glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: glowPulse 6s ease-in-out infinite;
+    }
+    .section-cta-banner__content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    .section-cta-banner__heading {
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-inverse);
+      margin-bottom: var(--space-6);
+    }
+    .section-cta-banner__badges {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+      flex-wrap: wrap;
+    }
+    .section-cta-banner__ctas {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      background: var(--color-footer-bg);
+      padding: var(--space-16) 0 var(--space-8);
+      position: relative;
+      z-index: 2;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(4, 1fr);
+      gap: var(--space-8);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+      margin-bottom: var(--space-12);
+    }
+    .footer-brand__logo {
+      height: 28px;
+      width: auto;
+      margin-bottom: var(--space-4);
+    }
+    .footer-brand__desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-footer-text);
+      line-height: var(--line-height-body);
+      max-width: 260px;
+    }
+    .footer-brand__social {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .footer-brand__social a {
+      color: var(--color-footer-text);
+      font-size: var(--font-size-sm);
+      transition: color var(--transition-fast);
+    }
+    .footer-brand__social a:hover { color: var(--color-footer-text-hover); }
+    .footer-column__heading {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--letter-spacing-widest);
+      text-transform: uppercase;
+      color: var(--color-text-inverse);
+      margin-bottom: var(--space-4);
+    }
+    .footer-column a {
+      display: block;
+      font-size: var(--font-size-sm);
+      color: var(--color-footer-text);
+      padding: var(--space-1) 0;
+      transition: color var(--transition-fast);
+    }
+    .footer-column a:hover { color: var(--color-footer-text-hover); }
+    .footer-bottom {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--space-6) var(--container-padding) 0;
+      border-top: 1px solid var(--color-footer-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+    .footer-bottom__copy {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+    .footer-bottom__legal {
+      display: flex;
+      gap: var(--space-6);
+    }
+    .footer-bottom__legal a {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+    .footer-bottom__legal a:hover { color: var(--color-footer-text-hover); }
+    @media (max-width: 768px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAVIGATION ===== -->
+  <header class="nav-header">
+    <div class="nav-header__inner">
+      <a href="/" class="nav-header__logo">
+        <img src="https://pipelinecrm.com/wp-content/uploads/pl_logo_white.svg" alt="Pipeline CRM" style="filter: brightness(0) saturate(100%) invert(9%) sepia(20%) saturate(3000%) hue-rotate(200deg);">
+      </a>
+      <nav class="nav-header__links">
+        <a href="https://pipelinecrm.com/features/">Platform</a>
+        <a href="https://pipelinecrm.com/solutions/">Solutions</a>
+        <a href="https://pipelinecrm.com/">Why Pipeline CRM?</a>
+        <a href="https://pipelinecrm.com/pricing/">Pricing</a>
+        <a href="https://pipelinecrm.com/resources/">Resources</a>
+      </nav>
+      <div class="nav-header__actions">
+        <a href="https://app.pipelinecrm.com/login" class="nav-header__signin">Sign in</a>
+        <a href="https://app.pipelinecrm.com/schedule_demo" class="btn btn-primary btn-sm">Book a demo</a>
+      </div>
+      <button class="nav-header__hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile nav drawer -->
+  <div class="nav-mobile-overlay" id="mobileOverlay" onclick="toggleMobileNav()"></div>
+  <div class="nav-mobile-drawer" id="mobileDrawer">
+    <button class="nav-mobile-drawer__close" aria-label="Close menu" onclick="toggleMobileNav()">&times;</button>
+    <a href="https://pipelinecrm.com/features/">Platform</a>
+    <a href="https://pipelinecrm.com/solutions/">Solutions</a>
+    <a href="https://pipelinecrm.com/">Why Pipeline CRM?</a>
+    <a href="https://pipelinecrm.com/pricing/">Pricing</a>
+    <a href="https://pipelinecrm.com/resources/">Resources</a>
+    <a href="https://app.pipelinecrm.com/login">Sign in</a>
+    <a href="https://app.pipelinecrm.com/schedule_demo" class="btn btn-primary">Book a demo</a>
+    <a href="https://app.pipelinecrm.com/signup" class="btn btn-secondary">Start a trial</a>
+  </div>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="section-hero">
+      <div class="section-hero__glow-1" aria-hidden="true"></div>
+      <div class="section-hero__glow-2" aria-hidden="true"></div>
+      <div class="section-hero__container">
+        <div class="section-hero__text fade-in">
+          <h1 class="section-hero__heading"><span class="gradient-text">CRM for Salespeople,</span><br>by Salespeople</h1>
+          <p class="section-hero__subheading">A cloud-based sales CRM platform that offers easy setup, integrations, customization, and intuitive tools. With Pipeline CRM software, you'll have everything you need to accelerate sales.</p>
+          <div class="section-hero__ctas">
+            <a href="https://app.pipelinecrm.com/schedule_demo" class="btn btn-primary btn-lg">Book a demo</a>
+            <a href="https://app.pipelinecrm.com/signup" class="btn btn-secondary btn-lg">Start a trial</a>
+          </div>
+          <div class="section-hero__badges">
+            <span class="badge">&#10003; No credit card required</span>
+            <span class="badge">&#10003; 14-day free trial</span>
+            <span class="badge">&#10003; Cancel anytime</span>
+          </div>
+        </div>
+        <div class="section-hero__media fade-in" data-delay="200">
+          <img src="https://pipelinecrm.com/wp-content/uploads/Main_Illustration.png.webp" alt="Pipeline CRM dashboard illustration" loading="eager">
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== FEATURES TABS ===== -->
+    <section class="section-features-tabs">
+      <div class="container">
+        <div class="section-features-tabs__header fade-in">
+          <span class="section-label">Work Better</span>
+          <h2 class="section-heading">Win more deals with Pipeline CRM</h2>
+          <p class="section-features-tabs__sub">Every detail about your sales pipelines, right there when you need it and hidden when you don't. Discover our user-friendly sales CRM software features and industry-specific prospecting CRM solutions.</p>
+        </div>
+        <div class="tabs-bar fade-in" data-delay="100">
+          <button class="tabs-bar__tab active" onclick="switchTab(0)">Sales Pipeline Management</button>
+          <button class="tabs-bar__tab" onclick="switchTab(1)">Sales Team Management</button>
+          <button class="tabs-bar__tab" onclick="switchTab(2)">Lead Management</button>
+          <button class="tabs-bar__tab" onclick="switchTab(3)">Contract Management</button>
+        </div>
+      </div>
+      <div class="tab-panel active" id="tab-0">
+        <div class="tab-panel__text">
+          <h3>Sales Pipeline Management</h3>
+          <p>Easily track and manage your sales deals, and visualize your pipeline for consistent business growth.</p>
+          <a href="https://pipelinecrm.com/solutions/sales-pipeline-management/" class="btn btn-ghost">Learn more &rarr;</a>
+        </div>
+        <div class="tab-panel__image">
+          <img src="https://pipelinecrm.com/wp-content/uploads/Main_Illustration.png.webp" alt="Sales Pipeline Management" loading="lazy">
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-1">
+        <div class="tab-panel__text">
+          <h3>Sales Team Management</h3>
+          <p>Enhance team performance with better visibility and streamline collaboration to drive sales success.</p>
+          <a href="https://pipelinecrm.com/features/" class="btn btn-ghost">Learn more &rarr;</a>
+        </div>
+        <div class="tab-panel__image">
+          <img src="https://pipelinecrm.com/wp-content/uploads/Kanban-view.png" alt="Sales Team Management" loading="lazy">
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-2">
+        <div class="tab-panel__text">
+          <h3>Lead Management</h3>
+          <p>Monitor and engage with leads more effectively with our prospecting CRM to accelerate your sales and close deals with confidence.</p>
+          <a href="https://pipelinecrm.com/features/" class="btn btn-ghost">Learn more &rarr;</a>
+        </div>
+        <div class="tab-panel__image">
+          <img src="https://pipelinecrm.com/wp-content/uploads/Auto-Enrich-Illustration-dark.png" alt="Lead Management" loading="lazy">
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-3">
+        <div class="tab-panel__text">
+          <h3>Contract Management</h3>
+          <p>Streamline contract management with built-in eSign to create, send, and track documents directly from your CRM data, eliminating delays and closing deals faster.</p>
+          <a href="https://pipelinecrm.com/solutions/contract-management/" class="btn btn-ghost">Learn more &rarr;</a>
+        </div>
+        <div class="tab-panel__image">
+          <img src="https://pipelinecrm.com/wp-content/uploads/CRM-customization_hero_dark_v1.svg" alt="Contract Management" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== STATS ===== -->
+    <section class="section-stats">
+      <div class="section-stats__glow" aria-hidden="true"></div>
+      <div class="section-stats__header container fade-in">
+        <span class="section-label">Customers love our</span>
+        <h2 class="section-heading">Award-winning support</h2>
+      </div>
+      <div class="stats-grid fade-in" data-delay="100">
+        <div class="stat-item">
+          <div class="stat-item__value gradient-text">97.6%</div>
+          <div class="stat-item__label">Satisfaction rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-item__value gradient-text">1m</div>
+          <div class="stat-item__label">Chat answer</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-item__value gradient-text">45m</div>
+          <div class="stat-item__label">First email response time</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-item__value gradient-text">5h</div>
+          <div class="stat-item__label">Email resolution time</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== FEATURE GRID ===== -->
+    <section class="section-feature-grid">
+      <div class="section-feature-grid__header container fade-in">
+        <span class="section-label">Grow</span>
+        <h2 class="section-heading">Top features to help sales teams<br>automate sales processes</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="card-feature fade-in" data-delay="0">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/CRM-customization_hero_dark_v1.svg" alt="CRM customization" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">Customizability</h3>
+            <p class="card-feature__desc">Our sales CRM allows your team to focus on their most valuable tasks.</p>
+            <a href="https://pipelinecrm.com/features/account-customization/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="100">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/Automated-email-campaigns_dark.svg" alt="Automated email campaigns" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">Bulk emails</h3>
+            <p class="card-feature__desc">Our sales CRM allows your team to focus on their most valuable tasks.</p>
+            <a href="https://pipelinecrm.com/features/automated-email-campaigns/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="200">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/proposal-tool_v2.svg" alt="Native eSign" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">Native eSign</h3>
+            <p class="card-feature__desc">Stop wondering if your contract was received, opened, or signed.</p>
+            <a href="https://pipelinecrm.com/features/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="0">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/Automations_dark.svg" alt="Automations" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">Automations</h3>
+            <p class="card-feature__desc">Our sales CRM allows your team to focus on their most valuable tasks.</p>
+            <a href="https://pipelinecrm.com/features/automations/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="100">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/Email-Sync_dark.svg" alt="Easy integrations" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">Easy integrations</h3>
+            <p class="card-feature__desc">Our sales CRM allows your team to focus on their most valuable tasks.</p>
+            <a href="https://pipelinecrm.com/features/integrations/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="200">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/Mobile_app.png.webp" alt="Mobile app" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">Mobile app</h3>
+            <p class="card-feature__desc">Our sales CRM allows your team to focus on their most valuable tasks.</p>
+            <a href="https://pipelinecrm.com/features/mobile-crm/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="0">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/Map-Views-Route-Planning-dark.svg" alt="Map Views Route Planning" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">Map Views &amp; Route Planning</h3>
+            <p class="card-feature__desc">Quickly identify which customers and prospects are within reach.</p>
+            <a href="https://pipelinecrm.com/features/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="100">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/Challenges_dark1.svg" alt="Challenges" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">Challenges</h3>
+            <p class="card-feature__desc">Spark healthy competition among your sales teams.</p>
+            <a href="https://pipelinecrm.com/features/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="200">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/Lead-Gen-Forms_dark_solid.svg" alt="Lead Gen Forms" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">Lead Forms Builder</h3>
+            <p class="card-feature__desc">Create high-converting lead forms in minutes.</p>
+            <a href="https://pipelinecrm.com/features/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="0">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/Auto-Enrich-Illustration-dark.png" alt="Auto Enrich" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">On-Demand Data Enrichment</h3>
+            <p class="card-feature__desc">Instantly enrich contacts with names, emails, and company info.</p>
+            <a href="https://pipelinecrm.com/features/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="100">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/Kanban-view.png" alt="Kanban view" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">Kanban view</h3>
+            <p class="card-feature__desc">Visualize your pipeline. Close deals faster.</p>
+            <a href="https://pipelinecrm.com/features/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+        <div class="card-feature fade-in" data-delay="200">
+          <div class="card-feature__image"><img src="https://pipelinecrm.com/wp-content/uploads/AI-Email-assistant_dark.svg" alt="AI Email Assistant" loading="lazy"></div>
+          <div class="card-feature__body">
+            <h3 class="card-feature__title">AI Email Assistant</h3>
+            <p class="card-feature__desc">Spend less time on emails and more time closing deals</p>
+            <a href="https://pipelinecrm.com/features/" class="card-feature__link">Discover more &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== BENEFITS ===== -->
+    <section class="section-benefits">
+      <div class="section-benefits__header container fade-in">
+        <span class="section-label">Benefits</span>
+        <h2 class="section-heading">Key advantages of Pipeline CRM</h2>
+      </div>
+      <div class="benefits-grid fade-in" data-delay="100">
+        <div class="benefit-item">
+          <h3 class="benefit-item__title">Kanban boards</h3>
+          <p class="benefit-item__desc">Kanban boards make it easy to organize your sales prospecting workflow, from first outreach to qualification and deal creation.</p>
+        </div>
+        <div class="benefit-item">
+          <h3 class="benefit-item__title">Custom fields</h3>
+          <p class="benefit-item__desc">Prioritize key customer details by creating up to 25 custom fields for each deal page.</p>
+        </div>
+        <div class="benefit-item">
+          <h3 class="benefit-item__title">Email campaigns &amp; tracking</h3>
+          <p class="benefit-item__desc">Track all your email messages, opens, clicks, and downloads automatically as activities in your account.</p>
+        </div>
+        <div class="benefit-item">
+          <h3 class="benefit-item__title">Sales forecasting</h3>
+          <p class="benefit-item__desc">When you understand past trends, you'll be able to confidently forecast the salespeople on track to hit quota.</p>
+        </div>
+        <div class="benefit-item">
+          <h3 class="benefit-item__title">Track commissions</h3>
+          <p class="benefit-item__desc">Automate sales commissions to reduce cost and increase transparency for remote sales teams.</p>
+        </div>
+        <div class="benefit-item">
+          <h3 class="benefit-item__title">Custom deal stages</h3>
+          <p class="benefit-item__desc">Choose default titles (Qualified Lead, Proposal, Contract, Signed) or customize them for your team.</p>
+        </div>
+        <div class="benefit-item">
+          <h3 class="benefit-item__title">Unlimited files storage</h3>
+          <p class="benefit-item__desc">Enjoy unlimited data storage for all documents, images, and records with no extra charges.</p>
+        </div>
+        <div class="benefit-item">
+          <h3 class="benefit-item__title">User permissions</h3>
+          <p class="benefit-item__desc">Assign permissions for your team members to set what they can see and do within the application.</p>
+        </div>
+        <div class="benefit-item">
+          <h3 class="benefit-item__title">Support &amp; setup assistance</h3>
+          <p class="benefit-item__desc">Our success team provides guidance to help you configure Pipeline CRM for effective prospect management and streamlined sales execution.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== SOCIAL PROOF ===== -->
+    <section class="section-social-proof">
+      <div class="section-social-proof__header container fade-in">
+        <h2 class="section-heading">How Pipeline CRM transforms sales</h2>
+        <p class="section-social-proof__trust">Trusted by over 18,000 users globally</p>
+      </div>
+      <div class="logos-row fade-in" data-delay="100">
+        <img src="https://pipelinecrm.com/wp-content/uploads/2021/07/pl-customer-logos_3-e1679440214377.png" alt="Customer logos" loading="lazy">
+        <img src="https://pipelinecrm.com/wp-content/uploads/Matific-Logo.svg" alt="Matific" loading="lazy">
+        <img src="https://pipelinecrm.com/wp-content/uploads/2021/07/pl-customer-logos-4-v2-e1679440117847.png" alt="Customer logos" loading="lazy">
+        <img src="https://pipelinecrm.com/wp-content/uploads/Sciens-Building-Solutions-Logo.svg" alt="Sciens Building Solutions" loading="lazy">
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== BLOG RESOURCES ===== -->
+    <section class="section-blog">
+      <div class="section-blog__header container fade-in">
+        <h2 class="section-heading">Helpful CRM &amp; sales resources</h2>
+      </div>
+      <div class="blog-grid">
+        <a href="https://pipelinecrm.com/blog/" class="card-blog fade-in" data-delay="0">
+          <div class="card-blog__image"><img src="https://pipelinecrm.com/wp-content/uploads/automated-data-entry-with-crm-integrations.jpg.webp" alt="CRM integration and automation" loading="lazy"></div>
+          <div class="card-blog__body">
+            <h3 class="card-blog__title">Zapier Integrations and Pipeline CRM: 10 Automations That Eliminate Manual Data Entry</h3>
+            <p class="card-blog__excerpt">Manually entering sales data can take hours, and it's rarely the best use of time for results-driven teams...</p>
+          </div>
+        </a>
+        <a href="https://pipelinecrm.com/blog/" class="card-blog fade-in" data-delay="100">
+          <div class="card-blog__image"><img src="https://pipelinecrm.com/wp-content/uploads/crm-sales-automation-dashboard-visualization.jpg.webp" alt="CRM automation dashboard" loading="lazy"></div>
+          <div class="card-blog__body">
+            <h3 class="card-blog__title">Sales Automation to Set Up in Pipeline CRM [With Use Cases]</h3>
+            <p class="card-blog__excerpt">Sales automation is no longer a luxury. It's a necessity. Reps want to sell, but most spend too much time on manual tasks...</p>
+          </div>
+        </a>
+        <a href="https://pipelinecrm.com/blog/" class="card-blog fade-in" data-delay="200">
+          <div class="card-blog__image"><img src="https://pipelinecrm.com/wp-content/uploads/Integrated-eSignatures.jpg.webp" alt="Integrated eSignatures in CRM" loading="lazy"></div>
+          <div class="card-blog__body">
+            <h3 class="card-blog__title">How Integrated eSignatures (eSign) in CRM Cuts Costs and Saves Time</h3>
+            <p class="card-blog__excerpt">Customer-oriented businesses understand that true customer satisfaction goes far beyond just offering affordable prices...</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== TRUST ===== -->
+    <section class="section-trust">
+      <div class="section-trust__header container fade-in">
+        <span class="section-label">A Platform You Can Trust</span>
+        <h2 class="section-heading">Designed to help you sale</h2>
+      </div>
+      <div class="trust-grid">
+        <div class="card-trust fade-in" data-delay="0">
+          <img class="card-trust__image" src="https://pipelinecrm.com/wp-content/uploads/home_g2.svg" alt="G2 awards" loading="lazy">
+          <h3 class="card-trust__title">You're in good company</h3>
+          <p class="card-trust__desc">Pipeline CRM named "Highest User Adoption" for enterprise and SMBs by G2 with award-winning customer service. We've perfected a solution that turns prospects into lasting relationships — making your path to success easier than ever.</p>
+        </div>
+        <div class="card-trust fade-in" data-delay="100">
+          <img class="card-trust__image" src="https://pipelinecrm.com/wp-content/uploads/Group-1597880462.svg" alt="Security certifications" loading="lazy">
+          <h3 class="card-trust__title">Security you can trust</h3>
+          <p class="card-trust__desc">We use industry best practices to establish and maintain a secure online experience.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== INTEGRATIONS ===== -->
+    <section class="section-integrations">
+      <div class="section-integrations__header container fade-in">
+        <span class="section-label">Easy Integrations</span>
+        <h2 class="section-heading">Continue using the apps you love</h2>
+      </div>
+      <div class="integrations-row fade-in" data-delay="100">
+        <img src="https://pipelinecrm.com/wp-content/uploads/Quickbooks-logo.svg" alt="Quickbooks" loading="lazy">
+        <img src="https://pipelinecrm.com/wp-content/uploads/Mailchimp-logo.svg" alt="Mailchimp" loading="lazy">
+        <img src="https://pipelinecrm.com/wp-content/uploads/Outlook_logo.svg" alt="Outlook" loading="lazy">
+        <img src="https://pipelinecrm.com/wp-content/uploads/Apollo_logo_copy.svg" alt="Apollo" loading="lazy">
+        <img src="https://pipelinecrm.com/wp-content/uploads/Google_logo.svg" alt="Google" loading="lazy">
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== SERVICES ===== -->
+    <section class="section-services">
+      <div class="section-services__header container fade-in">
+        <span class="section-label">Our Services</span>
+        <h2 class="section-heading">Comprehensive solutions for your CRM Success</h2>
+      </div>
+      <div class="services-grid">
+        <div class="card-service fade-in" data-delay="0">
+          <h3 class="card-service__title">Pipeline CRM Onboarding</h3>
+          <p class="card-service__desc">Our Customer Success team provides tailored training and support for a smooth CRM implementation.</p>
+          <a href="https://pipelinecrm.com/features/onboarding-services/" class="card-service__link">Discover more &rarr;</a>
+        </div>
+        <div class="card-service fade-in" data-delay="100">
+          <h3 class="card-service__title">Free Data Migration</h3>
+          <p class="card-service__desc">New to Pipeline CRM? We've got you covered! We offer free data migration and a smooth onboarding process.</p>
+          <a href="https://pipelinecrm.com/crm-data-migration/" class="card-service__link">Discover more &rarr;</a>
+        </div>
+        <div class="card-service fade-in" data-delay="200">
+          <h3 class="card-service__title">Knowledge Base</h3>
+          <p class="card-service__desc">Find answers fast with Pipeline CRM Help Center. Access guides, FAQs to maximize your CRM experience.</p>
+          <a href="https://help.pipelinecrm.com/" class="card-service__link">Discover more &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA BANNER ===== -->
+    <section class="section-cta-banner">
+      <div class="section-cta-banner__glow" aria-hidden="true"></div>
+      <div class="section-cta-banner__content fade-in">
+        <h2 class="section-cta-banner__heading">See how Pipeline CRM<br>can boost your sales</h2>
+        <div class="section-cta-banner__badges">
+          <span class="badge badge--inverse">&#10003; No credit card required</span>
+          <span class="badge badge--inverse">&#10003; 14-day free trial</span>
+          <span class="badge badge--inverse">&#10003; Cancel anytime</span>
+        </div>
+        <div class="section-cta-banner__ctas">
+          <a href="https://app.pipelinecrm.com/schedule_demo" class="btn btn-primary-inverted btn-lg">Book a Demo</a>
+          <a href="https://app.pipelinecrm.com/signup" class="btn btn-secondary-inverted btn-lg">Start a Trial</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img class="footer-brand__logo" src="https://pipelinecrm.com/wp-content/uploads/pl_logo_white.svg" alt="Pipeline CRM">
+        <p class="footer-brand__desc">An award winning sales CRM — that's actually easy to use. Proudly serving our customers since 2006.</p>
+        <div class="footer-brand__social">
+          <a href="https://www.linkedin.com/company/pipelinedeals-com/" aria-label="LinkedIn">LinkedIn</a>
+          <a href="https://www.facebook.com/pipelinecrm" aria-label="Facebook">Facebook</a>
+          <a href="https://twitter.com/pipelinedeals" aria-label="Twitter">Twitter</a>
+          <a href="https://www.youtube.com/channel/UCUyi1Ii7xpDWjebLebSlE-A" aria-label="YouTube">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h4 class="footer-column__heading">Platform</h4>
+        <a href="https://pipelinecrm.com/features/">All Features</a>
+        <a href="https://pipelinecrm.com/solutions/sales-pipeline-management/">Pipeline Management</a>
+        <a href="https://pipelinecrm.com/solutions/contract-management/">Contract Management</a>
+        <a href="https://pipelinecrm.com/features/automations/">Sales Automations</a>
+        <a href="https://pipelinecrm.com/features/reporting/">Tracking &amp; Reporting</a>
+        <a href="https://pipelinecrm.com/features/account-customization/">Customizability</a>
+        <a href="https://pipelinecrm.com/features/automated-email-campaigns/">Automated Email Tools</a>
+        <a href="https://pipelinecrm.com/features/integrations/">Integrations</a>
+        <a href="https://pipelinecrm.com/features/mobile-crm/">Mobile App</a>
+      </div>
+      <div class="footer-column">
+        <h4 class="footer-column__heading">Solutions</h4>
+        <a href="https://pipelinecrm.com/solutions/">All Solutions</a>
+        <a href="https://pipelinecrm.com/features/onboarding-services/">Pipeline CRM Onboarding</a>
+        <a href="https://pipelinecrm.com/crm-data-migration/">Free Data Migration</a>
+        <a href="https://pipelinecrm.com/industries/construction-crm/">Construction &amp; Contractors</a>
+        <a href="https://pipelinecrm.com/industries/manufacturing-crm/">Manufacturing &amp; Distribution</a>
+        <a href="https://pipelinecrm.com/industries/professional-services-crm/">Professional Services</a>
+      </div>
+      <div class="footer-column">
+        <h4 class="footer-column__heading">Company</h4>
+        <a href="https://pipelinecrm.com/about/">About</a>
+        <a href="https://pipelinecrm.com/pricing/">Pricing</a>
+        <a href="https://pipelinecrm.com/careers/">Careers</a>
+        <a href="https://pipelinecrm.com/awards/">Awards</a>
+        <a href="https://pipelinecrm.com/security/">Security</a>
+        <a href="https://pipelinecrm.com/contact-us/">Contact Us</a>
+      </div>
+      <div class="footer-column">
+        <h4 class="footer-column__heading">Resources</h4>
+        <a href="https://pipelinecrm.com/blog/">Blog</a>
+        <a href="https://help.pipelinecrm.com/">Knowledge Base</a>
+        <a href="https://pipelinecrm.com/videos/">Video Tutorials</a>
+        <a href="https://app.pipelinecrm.com/api/docs">API Documentation</a>
+        <a href="https://status.pipelinecrm.com/">Pipeline CRM Status</a>
+        <a href="https://pipelinecrm.com/customers/">Case Studies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom__copy">&copy; Pipeline CRM 2026</span>
+      <div class="footer-bottom__legal">
+        <a href="https://pipelinecrm.com/terms/">Terms and Conditions</a>
+        <a href="https://pipelinecrm.com/privacy-policy/">Privacy Policy</a>
+        <a href="https://pipelinecrm.com/gdpr/">GDPR</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    /* Nav scroll morph */
+    (function() {
+      var nav = document.querySelector('.nav-header');
+      if (!nav) return;
+      var trigger = 100;
+      var ticking = false;
+      function updateNav() {
+        nav.classList.toggle('nav-header--scrolled', window.scrollY > trigger);
+        ticking = false;
+      }
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          requestAnimationFrame(updateNav);
+          ticking = true;
+        }
+      });
+      updateNav();
+    })();
+
+    /* Entrance animations */
+    (function() {
+      var els = document.querySelectorAll('.fade-in');
+      if (!els.length) return;
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            var delay = parseInt(el.dataset.delay) || 0;
+            setTimeout(function() { el.classList.add('visible'); }, delay);
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function(el) { observer.observe(el); });
+    })();
+
+    /* Tab switching */
+    function switchTab(index) {
+      var tabs = document.querySelectorAll('.tabs-bar__tab');
+      var panels = document.querySelectorAll('.tab-panel');
+      tabs.forEach(function(t, i) {
+        t.classList.toggle('active', i === index);
+      });
+      panels.forEach(function(p, i) {
+        p.classList.toggle('active', i === index);
+      });
+    }
+
+    /* Mobile nav */
+    function toggleMobileNav() {
+      var overlay = document.getElementById('mobileOverlay');
+      var drawer = document.getElementById('mobileDrawer');
+      var isActive = drawer.classList.contains('active');
+      if (isActive) {
+        drawer.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      } else {
+        drawer.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+  </script>
+</body>
+</html>
