@@ -1601,33 +1601,22 @@
           });
         });
 
-        /* Customer logos staggered entrance */
-        gsap.from('.logos-row img', {
-          opacity: 0,
-          y: 15,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.logos-row',
-            start: 'top 85%',
-            toggleActions: 'play none none none'
+        /* Customer logos staggered entrance — container .fade-in handles opacity,
+           this adds per-image stagger using fromTo for robustness */
+        gsap.fromTo('.logos-row img',
+          { y: 15 },
+          { y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
+            scrollTrigger: { trigger: '.logos-row', start: 'top 85%', toggleActions: 'play none none none' }
           }
-        });
+        );
 
         /* Integration logos staggered entrance */
-        gsap.from('.integrations-row img', {
-          opacity: 0,
-          y: 15,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.integrations-row',
-            start: 'top 85%',
-            toggleActions: 'play none none none'
+        gsap.fromTo('.integrations-row img',
+          { y: 15 },
+          { y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
+            scrollTrigger: { trigger: '.integrations-row', start: 'top 85%', toggleActions: 'play none none none' }
           }
-        });
+        );
 
         /* SVG icon draw-on animation */
         gsap.utils.toArray('.icon-animated__path').forEach(function(path) {
