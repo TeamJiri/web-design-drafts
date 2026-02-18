@@ -485,8 +485,18 @@
       padding: var(--space-section) 0;
       position: relative;
       z-index: 2;
+      overflow: hidden;
     }
-    .section-social-proof__header { text-align: center; margin-bottom: var(--space-10); }
+    .section-social-proof__glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse, var(--glow-social-proof) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .section-social-proof__header { text-align: center; margin-bottom: var(--space-10); position: relative; z-index: 1; }
     .section-social-proof__trust {
       font-size: var(--font-size-base);
       color: var(--color-text-muted);
@@ -501,6 +511,8 @@
       max-width: var(--container-max);
       margin: 0 auto;
       padding: 0 var(--container-padding);
+      position: relative;
+      z-index: 1;
     }
     .logos-row img {
       max-height: 40px;
@@ -1260,6 +1272,7 @@
 
     <!-- ===== SOCIAL PROOF ===== -->
     <section class="section-social-proof">
+      <div class="section-social-proof__glow" aria-hidden="true"></div>
       <div class="section-social-proof__header container fade-in">
         <h2 class="section-heading">How Pipeline CRM transforms sales</h2>
         <p class="section-social-proof__trust">Trusted by over 18,000 users globally</p>

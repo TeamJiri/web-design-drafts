@@ -134,7 +134,8 @@
   --glow-hero-1: rgba(79, 70, 229, 0.18);
   --glow-hero-2: rgba(59, 130, 246, 0.12);
   --glow-cta: rgba(59, 130, 246, 0.15);
-  --glow-stats: rgba(79, 70, 229, 0.08);
+  --glow-stats: rgba(79, 70, 229, 0.18);
+  --glow-social-proof: rgba(59, 130, 246, 0.14);
 
   --glow-hero-size-1: 600px;
   --glow-hero-size-2: 500px;
