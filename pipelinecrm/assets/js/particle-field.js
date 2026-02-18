@@ -57,12 +57,12 @@
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(' + color + ',0.3)';
+        ctx.fillStyle = 'rgba(' + color + ',0.5)';
         ctx.fill();
       }
 
       // Proximity lines
-      ctx.strokeStyle = 'rgba(' + color + ',0.08)';
+      ctx.strokeStyle = 'rgba(' + color + ',0.15)';
       ctx.lineWidth = 1;
       for (var i = 0; i < particles.length; i++) {
         for (var j = i + 1; j < particles.length; j++) {
