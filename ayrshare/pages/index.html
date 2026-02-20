@@ -7,39 +7,36 @@
   <meta name="description" content="One API to post to 13+ social networks. Build social media features into your product in minutes, not months.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
-    /* ===== TOKENS — Stripe-inspired corporate ===== */
+    /* ===== TOKENS — Anti-Lovable corporate ===== */
     :root {
-      --color-bg:             #ffffff;
-      --color-surface:        #f8fafc;
-      --color-surface-dark:   #0f172a;
-      --color-border:         rgba(15, 23, 42, 0.08);
-      --color-border-strong:  rgba(15, 23, 42, 0.16);
-      --color-text:           #0f172a;
-      --color-text-muted:     #64748b;
-      --color-text-subtle:    #94a3b8;
-      --color-text-inverse:   #ffffff;
-      --color-primary:        #635BFF;
-      --color-primary-hover:  #4f46e5;
-      --color-primary-subtle: rgba(99, 91, 255, 0.08);
-      --color-primary-light:  rgba(99, 91, 255, 0.12);
-      --color-success:        #10b981;
-      --color-warning:        #f59e0b;
-      --color-error:          #ef4444;
-      --color-code-kw:        #f97316;
-      --color-code-fn:        #a78bfa;
-      --color-code-str:       #34d399;
-      --color-code-prop:      #60a5fa;
-      --color-code-cm:        #475569;
-      --color-code-accent:    #f8fafc;
+      /* Specific blue — NOT generic purple #635BFF */
+      --color-primary:        #1664D8;
+      --color-primary-hover:  #1155B5;
+      --color-primary-light:  #EBF3FF;
+      --color-primary-border: #BDD6F8;
 
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-mono: 'Fira Code', 'Cascadia Code', Consolas, 'Courier New', monospace;
+      --color-bg:             #ffffff;
+      --color-surface:        #F4F7FB;   /* blue-tinted surface, not generic gray */
+      --color-surface-dark:   #0F1628;
+      --color-border:         #DDE3EE;
+      --color-border-strong:  #B8C4D9;
+      --color-text:           #111827;
+      --color-text-muted:     #4B5563;
+      --color-text-subtle:    #9CA3AF;
+
+      --color-success:        #059669;
+      --color-warning:        #D97706;
+      --color-error:          #DC2626;
+
+      /* NOT Inter — Figtree + JetBrains Mono */
+      --font: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
 
       --text-xs:      0.75rem;
       --text-sm:      0.8125rem;
@@ -56,19 +53,19 @@
       --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
       --space-12: 3rem; --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
 
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-      --radius-full: 9999px;
+      /* Specific radii — NOT 9999px everywhere */
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   12px;
+      --radius-xl:   16px;
 
+      /* Neutral shadows — NO colored glow */
       --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
-      --shadow-lg: 0 8px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
-      --shadow-primary: 0 4px 16px rgba(99, 91, 255, 0.32);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 8px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
 
       --content-width: 760px;
-      --wide-width: 1120px;
+      --wide-width:    1120px;
     }
 
     body {
@@ -83,173 +80,139 @@
     a { color: var(--color-primary); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ===== NAV ===== */
+    /* ===== NAV — Solid white, border on scroll (no glassmorphism) ===== */
     .nav-header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      transition: background 0.25s ease, box-shadow 0.25s ease;
+      background: var(--color-bg);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .nav-header--scrolled {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 1px 0 var(--color-border), 0 4px 24px rgba(0,0,0,0.05);
+      border-bottom-color: var(--color-border);
+      box-shadow: var(--shadow-xs);
     }
     .nav-header__inner {
       max-width: var(--wide-width); margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 var(--space-8); height: 60px;
+      padding: 0 var(--space-8); height: 58px;
     }
     .nav-logo {
-      font-weight: 700; font-size: var(--text-lg);
+      font-size: var(--text-lg); font-weight: 800;
       color: var(--color-text); letter-spacing: -0.03em;
     }
     .nav-logo .acc { color: var(--color-primary); }
     .nav-links { display: flex; align-items: center; gap: var(--space-1); list-style: none; }
     .nav-link {
-      font-size: var(--text-sm); font-weight: 500;
-      color: var(--color-text-muted); padding: 0.375rem 0.625rem;
-      border-radius: var(--radius-sm); transition: color 0.15s, background 0.15s;
+      font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted);
+      padding: 0.375rem 0.625rem; border-radius: var(--radius-sm);
+      transition: color 0.12s, background 0.12s;
     }
     .nav-link:hover { color: var(--color-text); background: var(--color-surface); text-decoration: none; }
-    .nav-divider { width: 1px; height: 18px; background: var(--color-border); margin: 0 var(--space-2); }
+    .nav-sep { width: 1px; height: 18px; background: var(--color-border); margin: 0 var(--space-2); }
+    /* Button: 8px radius, NO glow shadow */
     .nav-cta {
       font-size: var(--text-sm); font-weight: 600;
       background: var(--color-primary); color: #fff;
-      padding: 0.4375rem 1rem; border-radius: var(--radius-sm);
-      transition: background 0.15s, box-shadow 0.15s; display: inline-block;
+      padding: 0.4375rem 1rem; border-radius: var(--radius-md);
+      transition: background 0.12s; display: inline-block;
     }
-    .nav-cta:hover { background: var(--color-primary-hover); box-shadow: var(--shadow-primary); text-decoration: none; }
+    .nav-cta:hover { background: var(--color-primary-hover); text-decoration: none; }
 
     /* ===== CONTAINERS ===== */
     .container { max-width: var(--content-width); margin: 0 auto; padding: 0 var(--space-6); }
     .container-wide { max-width: var(--wide-width); margin: 0 auto; padding: 0 var(--space-8); }
-    .section-divider { height: 1px; background: var(--color-border); }
 
-    /* ===== HERO ===== */
+    /* ===== HERO — Dot grid background, NO gradient orbs ===== */
     .section-hero {
-      position: relative; padding: 140px 0 100px; overflow: hidden;
-      background: var(--color-bg);
+      position: relative; padding: 148px 0 96px;
+      /* CSS dot grid — geometric, structured, not Lovable blob orbs */
+      background-color: var(--color-bg);
+      background-image: radial-gradient(circle, rgba(17,24,39,0.055) 1px, transparent 1px);
+      background-size: 28px 28px;
     }
-
-    /* Gradient mesh background — Stripe-style */
-    /* No overflow:hidden here — clipping creates visible rectangular edges on white bg */
-    .hero-gradient {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none; z-index: 0;
-    }
-    /* Single large radial glow, generous fade to transparent */
-    .hero-gradient::before {
+    /* Fade dot grid at edges so it doesn't fight with content */
+    .section-hero::before {
       content: '';
-      position: absolute; top: -20%; right: -5%;
-      width: 65%; height: 120%;
-      background: radial-gradient(ellipse at 60% 35%,
-        rgba(99, 91, 255, 0.13) 0%,
-        rgba(139, 92, 246, 0.07) 45%,
-        rgba(99, 91, 255, 0.02) 65%,
-        transparent 80%);
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(to right, #fff 0%, transparent 12%, transparent 88%, #fff 100%),
+        linear-gradient(to bottom, #fff 0%, transparent 18%, transparent 80%, #fff 100%);
     }
-    .hero-gradient::after {
-      content: '';
-      position: absolute; top: 0; right: 10%;
-      width: 50%; height: 80%;
-      background: radial-gradient(ellipse at 50% 40%,
-        rgba(236, 72, 153, 0.06) 0%,
-        rgba(99, 91, 255, 0.03) 50%,
-        transparent 75%);
-    }
-    .hero-gradient-orb {
-      position: absolute; top: 5%; right: 8%;
-      width: 45%; height: 70%;
-      background: radial-gradient(ellipse at 60% 40%,
-        rgba(34, 211, 238, 0.05) 0%,
-        transparent 65%);
-      animation: heroOrbShift 12s ease-in-out infinite alternate;
-    }
-    @keyframes heroOrbShift {
-      from { transform: translate(-10px, 0) scale(1); }
-      to   { transform: translate(30px, 20px) scale(1.06); }
-    }
-
     .section-hero .container { position: relative; z-index: 1; }
 
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: var(--space-2);
-      font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em;
+    /* Plain uppercase overline — NOT a pill badge */
+    .hero-overline {
+      font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.09em;
       text-transform: uppercase; color: var(--color-primary);
-      background: var(--color-primary-subtle); border: 1px solid var(--color-primary-light);
-      padding: 0.25rem 0.625rem; border-radius: var(--radius-full);
-      margin-bottom: var(--space-6);
+      margin-bottom: var(--space-5); display: block;
     }
-    .hero-eyebrow::before { content: '●'; font-size: 0.5rem; }
 
     .hero-heading {
-      font-size: var(--text-display); font-weight: 800;
-      color: var(--color-text); line-height: 1.05;
-      letter-spacing: -0.04em; margin-bottom: var(--space-6);
+      font-size: var(--text-display); font-weight: 800; color: var(--color-text);
+      line-height: 1.05; letter-spacing: -0.04em; margin-bottom: var(--space-6);
     }
-    .hero-heading .gradient-text {
-      background: linear-gradient(135deg, #635BFF 0%, #8B5CF6 50%, #EC4899 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    /* ONE accent word in solid primary — NOT gradient text */
+    .hero-heading .accent { color: var(--color-primary); }
 
     .hero-sub {
       font-size: var(--text-xl); color: var(--color-text-muted);
-      max-width: 540px; margin-bottom: var(--space-10); line-height: 1.65;
-      font-weight: 400;
+      max-width: 520px; margin-bottom: var(--space-10); line-height: 1.65; font-weight: 400;
     }
-    .hero-actions { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+    .hero-actions { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+
+    /* Buttons: 8px radius, neutral shadow — NO glow */
     .btn-primary {
       font-size: var(--text-sm); font-weight: 600;
       background: var(--color-primary); color: #fff;
-      padding: 0.6875rem 1.375rem; border-radius: var(--radius-sm);
+      padding: 0.6875rem 1.375rem; border-radius: var(--radius-md);
       display: inline-flex; align-items: center; gap: var(--space-2);
-      transition: background 0.15s, box-shadow 0.15s, transform 0.15s;
+      box-shadow: var(--shadow-xs);
+      transition: background 0.12s, box-shadow 0.12s;
     }
-    .btn-primary:hover { background: var(--color-primary-hover); box-shadow: var(--shadow-primary); transform: translateY(-1px); text-decoration: none; }
-    .btn-secondary {
-      font-size: var(--text-sm); font-weight: 500;
-      color: var(--color-text); padding: 0.6875rem 1.25rem;
-      border-radius: var(--radius-sm); border: 1px solid var(--color-border-strong);
+    .btn-primary:hover { background: var(--color-primary-hover); box-shadow: var(--shadow-sm); text-decoration: none; }
+    .btn-outline {
+      font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted);
+      padding: 0.6875rem 1.25rem; border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-strong);
       display: inline-flex; align-items: center; gap: var(--space-2);
-      transition: border-color 0.15s, background 0.15s;
+      transition: border-color 0.12s, color 0.12s;
     }
-    .btn-secondary:hover { background: var(--color-surface); border-color: var(--color-primary); color: var(--color-primary); text-decoration: none; }
+    .btn-outline:hover { border-color: var(--color-primary); color: var(--color-primary); text-decoration: none; }
 
     .hero-stats {
       margin-top: var(--space-16); padding-top: var(--space-8);
       border-top: 1px solid var(--color-border);
       display: flex; gap: var(--space-12); flex-wrap: wrap;
     }
-    .stat-number {
+    .stat-num {
       font-size: var(--text-3xl); font-weight: 800; color: var(--color-text);
-      letter-spacing: -0.04em; display: block; line-height: 1;
-      margin-bottom: var(--space-1);
+      letter-spacing: -0.04em; line-height: 1; display: block; margin-bottom: 2px;
     }
-    .stat-label { font-size: var(--text-sm); color: var(--color-text-muted); font-weight: 400; }
+    .stat-label { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+    /* ===== DIVIDER ===== */
+    .rule { height: 1px; background: var(--color-border); }
 
     /* ===== PLATFORMS ===== */
-    .section-platforms { padding: var(--space-16) 0; background: var(--color-surface); }
-    .platforms-label {
-      font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--color-text-subtle);
-      margin-bottom: var(--space-5);
+    .section-platforms { padding: var(--space-12) 0; background: var(--color-surface); }
+    .platforms-overline {
+      font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--color-text-subtle); margin-bottom: var(--space-4);
     }
     .platforms-list { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; }
+    /* Tags: 4px radius — NOT rounded-full */
     .platform-tag {
-      font-size: var(--text-xs); font-weight: 500;
-      color: var(--color-text-muted); background: var(--color-bg);
-      border: 1px solid var(--color-border); padding: 0.3125rem 0.75rem;
-      border-radius: var(--radius-full); cursor: default;
-      transition: border-color 0.15s, color 0.15s, box-shadow 0.15s;
+      font-size: var(--text-xs); font-weight: 500; color: var(--color-text-muted);
+      background: var(--color-bg); border: 1px solid var(--color-border);
+      padding: 0.3rem 0.7rem; border-radius: var(--radius-sm);
+      transition: border-color 0.12s, color 0.12s;
     }
-    .platform-tag:hover { border-color: var(--color-primary); color: var(--color-primary); box-shadow: var(--shadow-xs); }
+    .platform-tag:hover { border-color: var(--color-primary); color: var(--color-primary); }
 
-    /* ===== SECTION LABELS / HEADINGS ===== */
-    .section-eyebrow {
-      font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.07em;
-      text-transform: uppercase; color: var(--color-primary);
-      margin-bottom: var(--space-4); display: block;
+    /* ===== SECTION OVERLINE ===== */
+    .section-overline {
+      font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--color-primary); margin-bottom: var(--space-4); display: block;
     }
     .section-heading {
       font-size: var(--text-4xl); font-weight: 800; color: var(--color-text);
@@ -263,254 +226,189 @@
     /* ===== CODE SECTION ===== */
     .section-code { padding: var(--space-24) 0; }
     .code-window {
-      border-radius: var(--radius-lg); overflow: hidden;
-      box-shadow: var(--shadow-lg); border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl); overflow: hidden;
+      box-shadow: var(--shadow-md); border: 1px solid var(--color-border);
     }
     .code-titlebar {
-      background: var(--color-surface-dark); padding: 0.875rem 1rem;
-      display: flex; align-items: center; gap: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: #1a2236; padding: 0.875rem 1.125rem;
+      display: flex; align-items: center; gap: 0.375rem; border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .code-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .code-dot--red   { background: #ff5f57; }
-    .code-dot--yellow{ background: #febc2e; }
-    .code-dot--green { background: #28c840; }
-    .code-titlebar-label {
+    .code-dot--red    { background: #ff5f57; }
+    .code-dot--yellow { background: #febc2e; }
+    .code-dot--green  { background: #28c840; }
+    .code-titlebar-filename {
       margin-left: auto; font-family: var(--font-mono); font-size: var(--text-xs);
-      color: rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.28);
     }
     .code-tabs {
-      display: flex; background: rgba(255,255,255,0.04);
-      border-bottom: 1px solid rgba(255,255,255,0.08); overflow-x: auto;
-      /* Must explicitly set dark bg — parent overflow:hidden doesn't guarantee inheritance */
-      background-color: #161d2e;
+      display: flex; background-color: #141d30;
+      border-bottom: 1px solid rgba(255,255,255,0.07); overflow-x: auto;
     }
     .code-tab {
       font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500;
-      color: rgba(255,255,255,0.4); padding: 0.625rem 1.25rem;
+      color: rgba(255,255,255,0.38); padding: 0.625rem 1.25rem;
       cursor: pointer; border: none; background: transparent;
       border-bottom: 2px solid transparent; white-space: nowrap;
-      transition: color 0.15s, border-color 0.15s;
+      transition: color 0.12s, border-color 0.12s;
     }
     .code-tab.active { color: #fff; border-bottom-color: var(--color-primary); }
-    .code-tab:hover:not(.active) { color: rgba(255,255,255,0.7); }
+    .code-tab:hover:not(.active) { color: rgba(255,255,255,0.65); }
     .code-panel {
-      background: var(--color-surface-dark); padding: var(--space-8); display: none;
-      overflow-x: auto;
+      background: #0F1628; padding: var(--space-8); display: none; overflow-x: auto;
     }
     .code-panel.active { display: block; }
-    pre { font-family: var(--font-mono); font-size: var(--text-sm); line-height: 1.75; }
+    pre { font-family: var(--font-mono); font-size: var(--text-sm); line-height: 1.8; }
     .kw   { color: #f97316; }
     .fn   { color: #a78bfa; }
     .str  { color: #34d399; }
-    .cm   { color: #475569; font-style: italic; }
+    .cm   { color: #4B5563; font-style: italic; }
     .prop { color: #60a5fa; }
-    .acc  { color: #f8fafc; }
 
-    /* ===== FEATURES — 3-column card grid ===== */
+    /* ===== FEATURES — Numbered list table, NOT 3-col card grid ===== */
     .section-features { padding: var(--space-24) 0; background: var(--color-surface); }
-    .feature-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4);
+    .feature-table { border-top: 1px solid var(--color-border); }
+    .feature-row {
+      display: grid; grid-template-columns: 2.5rem 220px 1fr auto;
+      gap: var(--space-6); align-items: baseline;
+      padding: var(--space-6) 0; border-bottom: 1px solid var(--color-border);
+      transition: background 0.1s;
     }
-    .feature-card {
-      background: var(--color-bg); border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg); padding: var(--space-8);
-      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+    .feature-row:hover { background: rgba(22, 100, 216, 0.025); margin: 0 calc(-1 * var(--space-8)); padding-left: var(--space-8); padding-right: var(--space-8); }
+    .feature-num {
+      font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-subtle); font-weight: 500;
     }
-    .feature-card:hover { box-shadow: var(--shadow-md); border-color: var(--color-border-strong); transform: translateY(-2px); }
-    .feature-icon {
-      width: 40px; height: 40px; border-radius: var(--radius-md);
-      background: var(--color-primary-subtle); border: 1px solid var(--color-primary-light);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: var(--space-5); color: var(--color-primary);
-    }
-    .feature-card-title {
-      font-size: var(--text-base); font-weight: 700; color: var(--color-text);
-      margin-bottom: var(--space-3); letter-spacing: -0.01em;
+    .feature-endpoint {
+      font-family: var(--font-mono); font-size: var(--text-sm); font-weight: 500; color: var(--color-text);
       display: flex; align-items: center; gap: var(--space-2);
     }
-    .badge {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
-      text-transform: uppercase; color: var(--color-primary);
-      background: var(--color-primary-subtle); border: 1px solid var(--color-primary-light);
-      padding: 0.1rem 0.4rem; border-radius: var(--radius-full);
+    .feature-desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.6; }
+    .feature-tag {
+      font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+      padding: 0.15rem 0.45rem; border-radius: var(--radius-sm); white-space: nowrap;
     }
-    .feature-card-desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.65; }
-    .feature-card-endpoint {
-      display: inline-flex; align-items: center; gap: var(--space-2);
-      margin-top: var(--space-4); font-family: var(--font-mono); font-size: var(--text-xs);
-      color: var(--color-text-subtle); background: var(--color-surface);
-      border: 1px solid var(--color-border); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);
-    }
-    .method-badge {
-      font-size: 9px; font-weight: 700; letter-spacing: 0.04em;
-      padding: 0.1rem 0.35rem; border-radius: 3px;
-    }
-    .method-badge.post { background: rgba(16, 185, 129, 0.12); color: #10b981; }
-    .method-badge.get  { background: rgba(96, 165, 250, 0.12); color: #3b82f6; }
-    .method-badge.del  { background: rgba(239, 68, 68, 0.12);  color: #ef4444; }
+    .feature-tag--new  { background: var(--color-primary-light); color: var(--color-primary); border: 1px solid var(--color-primary-border); }
+    .feature-tag--pro  { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
 
-    /* ===== ENDPOINTS GRID ===== */
+    /* HTTP method labels */
+    .method { font-size: 10px; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 3px; }
+    .method--post { background: rgba(5,150,105,0.1); color: #059669; }
+    .method--get  { background: rgba(22,100,216,0.08); color: var(--color-primary); }
+    .method--del  { background: rgba(220,38,38,0.08); color: #DC2626; }
+
+    /* ===== ENDPOINTS ===== */
     .section-endpoints { padding: var(--space-24) 0; }
-    .endpoints-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3);
-    }
+    .endpoints-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
     .endpoint-card {
-      background: var(--color-bg); border: 1px solid var(--color-border);
-      border-radius: var(--radius-md); padding: var(--space-5);
-      display: flex; flex-direction: column; gap: var(--space-2);
-      transition: box-shadow 0.2s, border-color 0.2s;
+      padding: var(--space-5); border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); background: var(--color-bg);
+      transition: border-color 0.12s;
     }
-    .endpoint-card:hover { box-shadow: var(--shadow-sm); border-color: var(--color-border-strong); }
-    .endpoint-header { display: flex; align-items: center; gap: var(--space-2); }
-    .endpoint-method-tag {
-      font-family: var(--font-mono); font-size: 10px; font-weight: 700;
-      padding: 0.1875rem 0.4375rem; border-radius: 4px; letter-spacing: 0.02em;
-    }
-    .endpoint-method-tag.post { background: rgba(16,185,129,0.1);  color: #059669; }
-    .endpoint-method-tag.get  { background: rgba(96,165,250,0.1);  color: #2563eb; }
-    .endpoint-method-tag.del  { background: rgba(239,68,68,0.1);   color: #dc2626; }
-    .endpoint-path { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text); font-weight: 500; }
+    .endpoint-card:hover { border-color: var(--color-primary); }
+    .endpoint-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
+    .endpoint-path { font-family: var(--font-mono); font-size: var(--text-sm); font-weight: 500; color: var(--color-text); }
     .endpoint-desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.5; }
 
-    /* ===== TESTIMONIALS ===== */
+    /* ===== TESTIMONIALS — Pull-quote format, NO star ratings ===== */
     .section-social { padding: var(--space-24) 0; background: var(--color-surface); }
-    .testimonials-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4);
-      margin-top: var(--space-12);
-    }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); margin-top: var(--space-12); }
     .testimonial-card {
       background: var(--color-bg); border: 1px solid var(--color-border);
       border-radius: var(--radius-lg); padding: var(--space-8);
-      box-shadow: var(--shadow-xs);
-      transition: box-shadow 0.2s, transform 0.2s;
+      /* Left border accent instead of card shadow */
+      border-left: 3px solid var(--color-primary);
     }
-    .testimonial-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-    .testimonial-stars { color: #f59e0b; font-size: var(--text-sm); margin-bottom: var(--space-4); letter-spacing: 2px; }
+    /* Large quotation mark as decorative element — NOT ⭐ */
+    .testimonial-quote-mark {
+      font-family: Georgia, serif; font-size: 3rem; line-height: 1; color: var(--color-primary-border);
+      display: block; margin-bottom: var(--space-3); height: 2rem;
+    }
     .testimonial-text {
       font-size: var(--text-base); color: var(--color-text); line-height: 1.7;
       margin-bottom: var(--space-6); font-style: italic;
     }
-    .testimonial-divider { height: 1px; background: var(--color-border); margin-bottom: var(--space-5); }
-    .testimonial-author { display: flex; align-items: center; gap: var(--space-3); }
-    .testimonial-avatar {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--color-primary), #8B5CF6);
-      display: flex; align-items: center; justify-content: center;
-      font-size: var(--text-xs); font-weight: 700; color: #fff;
-      flex-shrink: 0;
-    }
-    .testimonial-name { font-size: var(--text-sm); font-weight: 600; color: var(--color-text); }
-    .testimonial-role { font-size: var(--text-xs); color: var(--color-text-subtle); }
+    .testimonial-attribution { font-size: var(--text-sm); color: var(--color-text-muted); }
+    .testimonial-attribution strong { color: var(--color-text); font-weight: 600; font-style: normal; }
 
-    /* ===== CTA SECTION ===== */
+    /* ===== CTA — Solid primary color, NO radial glows ===== */
     .section-cta {
       padding: var(--space-24) 0;
-      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e0a3c 100%);
-      position: relative; overflow: hidden;
+      /* Solid primary — no gradient, no radial orbs, no glows */
+      background: var(--color-primary);
     }
-    .section-cta::before {
-      content: '';
-      position: absolute; top: -200px; right: -100px;
-      width: 600px; height: 600px;
-      background: radial-gradient(ellipse, rgba(99,91,255,0.3) 0%, transparent 70%);
-    }
-    .section-cta::after {
-      content: '';
-      position: absolute; bottom: -150px; left: 0;
-      width: 500px; height: 400px;
-      background: radial-gradient(ellipse, rgba(236,72,153,0.12) 0%, transparent 70%);
-    }
-    .section-cta .container { position: relative; z-index: 1; text-align: center; }
-    .cta-badge {
-      display: inline-flex; align-items: center; gap: var(--space-2);
-      font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em;
-      text-transform: uppercase; color: rgba(255,255,255,0.6);
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      padding: 0.25rem 0.75rem; border-radius: var(--radius-full);
-      margin-bottom: var(--space-6);
+    .section-cta .container { text-align: center; }
+    .cta-overline {
+      font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      margin-bottom: var(--space-5); display: block;
     }
     .cta-heading {
       font-size: var(--text-5xl); font-weight: 800; color: #fff;
       letter-spacing: -0.04em; line-height: 1.05; margin-bottom: var(--space-5);
     }
-    .cta-heading .gradient-text {
-      background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .cta-sub {
-      font-size: var(--text-lg); color: rgba(255,255,255,0.55);
-      margin-bottom: var(--space-10); max-width: 480px; margin-left: auto; margin-right: auto;
-    }
-    .cta-actions { display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; }
-    .btn-cta-primary {
+    .cta-sub { font-size: var(--text-lg); color: rgba(255,255,255,0.7); margin-bottom: var(--space-10); }
+    .cta-actions { display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap; }
+    .btn-cta-white {
       font-size: var(--text-sm); font-weight: 600;
       background: #fff; color: var(--color-primary);
-      padding: 0.75rem 1.5rem; border-radius: var(--radius-sm);
+      padding: 0.75rem 1.5rem; border-radius: var(--radius-md);
       display: inline-flex; align-items: center; gap: var(--space-2);
-      transition: box-shadow 0.15s, transform 0.15s;
+      box-shadow: var(--shadow-sm); transition: box-shadow 0.12s;
     }
-    .btn-cta-primary:hover { box-shadow: 0 4px 20px rgba(255,255,255,0.2); transform: translateY(-1px); text-decoration: none; }
-    .btn-cta-secondary {
+    .btn-cta-white:hover { box-shadow: var(--shadow-md); text-decoration: none; }
+    .btn-cta-ghost {
       font-size: var(--text-sm); font-weight: 500;
-      color: rgba(255,255,255,0.7); padding: 0.75rem 1.25rem;
-      border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+      padding: 0.75rem 1.25rem; border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.3);
       display: inline-flex; align-items: center; gap: var(--space-2);
-      transition: border-color 0.15s, color 0.15s;
+      transition: border-color 0.12s, color 0.12s;
     }
-    .btn-cta-secondary:hover { border-color: rgba(255,255,255,0.4); color: #fff; text-decoration: none; }
-    .cta-note {
-      margin-top: var(--space-6); font-size: var(--text-xs); color: rgba(255,255,255,0.35);
-    }
+    .btn-cta-ghost:hover { border-color: rgba(255,255,255,0.6); color: #fff; text-decoration: none; }
+    .cta-note { margin-top: var(--space-6); font-size: var(--text-xs); color: rgba(255,255,255,0.4); }
 
     /* ===== FOOTER ===== */
     .site-footer { padding: var(--space-16) 0 var(--space-10); border-top: 1px solid var(--color-border); }
     .footer-grid { display: grid; grid-template-columns: 1.8fr repeat(3, 1fr); gap: var(--space-8); margin-bottom: var(--space-12); }
-    .footer-brand {
-      font-size: var(--text-lg); font-weight: 800; color: var(--color-text);
-      letter-spacing: -0.03em; margin-bottom: var(--space-3);
-    }
+    .footer-brand { font-size: var(--text-lg); font-weight: 800; color: var(--color-text); letter-spacing: -0.03em; margin-bottom: var(--space-3); }
     .footer-brand .acc { color: var(--color-primary); }
     .footer-tagline { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.6; max-width: 230px; }
-    .footer-col-label { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--color-text-subtle); margin-bottom: var(--space-4); }
+    .footer-col-label { font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-subtle); margin-bottom: var(--space-4); }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: var(--space-3); }
-    .footer-link { font-size: var(--text-sm); color: var(--color-text-muted); transition: color 0.15s; }
+    .footer-link { font-size: var(--text-sm); color: var(--color-text-muted); transition: color 0.12s; }
     .footer-link:hover { color: var(--color-text); text-decoration: none; }
-    .footer-bottom { padding-top: var(--space-8); border-top: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4); }
+    .footer-bottom { padding-top: var(--space-8); border-top: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4); }
     .footer-copy { font-size: var(--text-sm); color: var(--color-text-subtle); }
     .footer-socials { display: flex; gap: var(--space-6); }
-    .footer-social { font-size: var(--text-sm); color: var(--color-text-muted); transition: color 0.15s; }
+    .footer-social { font-size: var(--text-sm); color: var(--color-text-muted); transition: color 0.12s; }
     .footer-social:hover { color: var(--color-text); text-decoration: none; }
 
-    /* ===== ENTRANCE ANIMATIONS ===== */
-    .fade-up {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    /* ===== ANIMATIONS — Section headings only, no translateY, nothing else ===== */
+    .reveal {
+      opacity: 0; transition: opacity 0.5s ease;
     }
-    .fade-up.is-visible { opacity: 1; transform: translateY(0); }
-    .fade-up--delay-1 { transition-delay: 0.05s; }
-    .fade-up--delay-2 { transition-delay: 0.10s; }
-    .fade-up--delay-3 { transition-delay: 0.15s; }
-    .fade-up--delay-4 { transition-delay: 0.20s; }
-    .fade-up--delay-5 { transition-delay: 0.25s; }
-    .fade-up--delay-6 { transition-delay: 0.30s; }
+    .reveal.is-visible { opacity: 1; }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       :root { --text-display: 3rem; }
-      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .feature-row { grid-template-columns: 2.5rem 180px 1fr; }
+      .feature-row .feature-tag { display: none; }
       .footer-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
-      :root { --text-display: 2.5rem; --text-4xl: 1.75rem; }
+      :root { --text-display: 2.5rem; --text-4xl: 1.875rem; }
       .nav-links .nav-link { display: none; }
-      .nav-divider { display: none; }
-      .section-hero { padding: 120px 0 80px; }
+      .nav-sep { display: none; }
+      .section-hero { padding: 120px 0 72px; }
       .hero-stats { gap: var(--space-8); }
-      .feature-grid { grid-template-columns: 1fr; }
+      .feature-row { grid-template-columns: 2.5rem 1fr; gap: var(--space-3); }
+      .feature-endpoint { grid-column: 2; }
+      .feature-desc { grid-column: 2; }
+      .feature-tag { display: none; }
       .endpoints-grid { grid-template-columns: 1fr; }
       .testimonials-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; gap: var(--space-10); }
+      .footer-grid { grid-template-columns: 1fr; gap: var(--space-8); }
       .section-heading { font-size: var(--text-3xl); }
       .cta-heading { font-size: var(--text-4xl); }
     }
@@ -523,7 +421,7 @@
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- NAV: solid white, border on scroll — no glassmorphism -->
   <header class="nav-header" id="nav">
     <div class="nav-header__inner">
       <a class="nav-logo" href="/">ayr<span class="acc">share</span></a>
@@ -532,7 +430,7 @@
         <li><a class="nav-link" href="#">Blog</a></li>
         <li><a class="nav-link" href="#">Pricing</a></li>
         <li><a class="nav-link" href="#">Business Plan</a></li>
-        <div class="nav-divider" role="separator"></div>
+        <div class="nav-sep" role="separator"></div>
         <li><a class="nav-link" href="#">Log In</a></li>
         <li><a class="nav-cta" href="#">Get Started</a></li>
       </ul>
@@ -541,15 +439,13 @@
 
   <main>
 
-    <!-- HERO -->
+    <!-- HERO: dot grid bg, plain overline, solid text, neutral buttons -->
     <section class="section-hero">
-      <div class="hero-gradient" aria-hidden="true">
-        <div class="hero-gradient-orb"></div>
-      </div>
       <div class="container">
-        <div class="hero-eyebrow">Social Media Infrastructure</div>
+        <span class="hero-overline">Social Media Infrastructure</span>
         <h1 class="hero-heading">
-          The developer API<br>for <span class="gradient-text">social media</span>
+          The developer API<br>
+          for <span class="accent">social media</span>
         </h1>
         <p class="hero-sub">One API to post, schedule, and analyze across 13+ social networks. Build social media features into your product in minutes, not months.</p>
         <div class="hero-actions">
@@ -557,24 +453,15 @@
             Get Started Free
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a class="btn-secondary" href="#">
+          <a class="btn-outline" href="#">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
             Read the Docs
           </a>
         </div>
         <div class="hero-stats">
-          <div>
-            <span class="stat-number">13+</span>
-            <span class="stat-label">Social platforms</span>
-          </div>
-          <div>
-            <span class="stat-number">1M+</span>
-            <span class="stat-label">Posts sent via API</span>
-          </div>
-          <div>
-            <span class="stat-number">8</span>
-            <span class="stat-label">SDK languages</span>
-          </div>
+          <div><span class="stat-num">13+</span><span class="stat-label">Social platforms</span></div>
+          <div><span class="stat-num">1M+</span><span class="stat-label">Posts sent via API</span></div>
+          <div><span class="stat-num">8</span><span class="stat-label">SDK languages</span></div>
         </div>
       </div>
     </section>
@@ -582,7 +469,7 @@
     <!-- PLATFORMS -->
     <section class="section-platforms">
       <div class="container-wide">
-        <p class="platforms-label">Supported platforms</p>
+        <p class="platforms-overline">Supported platforms</p>
         <ul class="platforms-list">
           <li class="platform-tag">Facebook</li>
           <li class="platform-tag">X / Twitter</li>
@@ -601,22 +488,22 @@
       </div>
     </section>
 
-    <div class="section-divider"></div>
+    <div class="rule"></div>
 
     <!-- CODE EXAMPLES -->
     <section class="section-code">
       <div class="container-wide">
         <div style="max-width: var(--content-width); margin-bottom: var(--space-10);">
-          <span class="section-eyebrow fade-up">Quick start</span>
-          <h2 class="section-heading fade-up">Post with a few<br>lines of code</h2>
-          <p class="section-sub fade-up">One API call. Every platform. Node.js, Python, Go, PHP, cURL — pick your language.</p>
+          <span class="section-overline reveal">Quick start</span>
+          <h2 class="section-heading reveal">Post with a few<br>lines of code</h2>
+          <p class="section-sub">One API call. Every platform. Node.js, Python, Go, PHP, cURL — pick your language.</p>
         </div>
-        <div class="code-window fade-up">
+        <div class="code-window">
           <div class="code-titlebar">
             <span class="code-dot code-dot--red"></span>
             <span class="code-dot code-dot--yellow"></span>
             <span class="code-dot code-dot--green"></span>
-            <span class="code-titlebar-label">ayrshare-quickstart</span>
+            <span class="code-titlebar-filename">ayrshare-quickstart.js</span>
           </div>
           <div class="code-tabs">
             <button class="code-tab active" data-tab="node">Node.js</button>
@@ -626,22 +513,22 @@
           </div>
           <div class="code-panel active" id="tab-node"><pre><span class="cm">// npm install @ayrshare/social-post-api</span>
 
-<span class="kw">const</span> <span class="acc">SocialPost</span> = <span class="fn">require</span>(<span class="str">'@ayrshare/social-post-api'</span>);
-<span class="kw">const</span> api = <span class="kw">new</span> <span class="acc">SocialPost</span>(<span class="str">'YOUR_API_KEY'</span>);
+<span class="kw">const</span> SocialPost = <span class="fn">require</span>(<span class="str">'@ayrshare/social-post-api'</span>);
+<span class="kw">const</span> api = <span class="kw">new</span> SocialPost(<span class="str">'YOUR_API_KEY'</span>);
 
 <span class="kw">const</span> response = <span class="kw">await</span> api.<span class="fn">post</span>({
   post: <span class="str">"Today is a great day!"</span>,
   platforms: [<span class="str">"twitter"</span>, <span class="str">"facebook"</span>, <span class="str">"instagram"</span>, <span class="str">"linkedin"</span>],
-  scheduleDate: <span class="kw">new</span> <span class="acc">Date</span>().<span class="fn">toISOString</span>(),
+  scheduleDate: <span class="kw">new</span> Date().<span class="fn">toISOString</span>(),
 });
 
 console.<span class="fn">log</span>(response.<span class="prop">id</span>);       <span class="cm">// "post_abc123"</span>
 console.<span class="fn">log</span>(response.<span class="prop">postIds</span>);  <span class="cm">// { twitter: "...", facebook: "..." }</span></pre></div>
           <div class="code-panel" id="tab-python"><pre><span class="cm"># pip install ayrshare</span>
 
-<span class="kw">from</span> ayrshare <span class="kw">import</span> <span class="acc">SocialPost</span>
+<span class="kw">from</span> ayrshare <span class="kw">import</span> SocialPost
 
-api = <span class="acc">SocialPost</span>(<span class="str">"YOUR_API_KEY"</span>)
+api = SocialPost(<span class="str">"YOUR_API_KEY"</span>)
 
 response = api.<span class="fn">post</span>({
     <span class="str">"post"</span>: <span class="str">"Today is a great day!"</span>,
@@ -682,193 +569,156 @@ response = api.<span class="fn">post</span>({
       </div>
     </section>
 
-    <div class="section-divider"></div>
+    <div class="rule"></div>
 
-    <!-- FEATURES -->
+    <!-- FEATURES: numbered table — NOT 3-column card grid -->
     <section class="section-features">
       <div class="container-wide">
-        <span class="section-eyebrow fade-up">API capabilities</span>
-        <h2 class="section-heading fade-up">Everything you need<br>to go to market</h2>
-        <p class="section-sub fade-up">No SDK required. If you can make an HTTP request, you can use Ayrshare.</p>
-        <div class="feature-grid">
-
-          <div class="feature-card fade-up fade-up--delay-1">
-            <div class="feature-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </div>
-            <div class="feature-card-title">Publish posts <span class="badge">Core</span></div>
-            <p class="feature-card-desc">Publish text, images, videos, or links to 13+ platforms simultaneously. Schedule for future delivery or post immediately.</p>
-            <div class="feature-card-endpoint"><span class="method-badge post">POST</span>/api/post</div>
+        <span class="section-overline reveal">API capabilities</span>
+        <h2 class="section-heading reveal">Everything exposed<br>as REST endpoints</h2>
+        <p class="section-sub">No SDK required. If you can make an HTTP request, you can use Ayrshare.</p>
+        <div class="feature-table">
+          <div class="feature-row">
+            <span class="feature-num">01</span>
+            <span class="feature-endpoint"><span class="method method--post">POST</span>/post</span>
+            <span class="feature-desc">Publish text, images, videos, or links to 13+ platforms simultaneously. Schedule for future delivery or post immediately.</span>
+            <span></span>
           </div>
-
-          <div class="feature-card fade-up fade-up--delay-2">
-            <div class="feature-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div class="feature-card-title">Analytics <span class="badge">New</span></div>
-            <p class="feature-card-desc">Full history and engagement stats for every post — impressions, clicks, shares, and reach across all connected platforms.</p>
-            <div class="feature-card-endpoint"><span class="method-badge get">GET</span>/api/analytics</div>
+          <div class="feature-row">
+            <span class="feature-num">02</span>
+            <span class="feature-endpoint"><span class="method method--del">DELETE</span>/post</span>
+            <span class="feature-desc">Remove posts across all networks with one API call. Supports bulk deletion by date range or post ID.</span>
+            <span></span>
           </div>
-
-          <div class="feature-card fade-up fade-up--delay-3">
-            <div class="feature-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            </div>
-            <div class="feature-card-title">Comments</div>
-            <p class="feature-card-desc">Retrieve, add, and manage comments on any post programmatically. Moderate at scale without logging in to each platform.</p>
-            <div class="feature-card-endpoint"><span class="method-badge post">POST</span>/api/comment</div>
+          <div class="feature-row">
+            <span class="feature-num">03</span>
+            <span class="feature-endpoint"><span class="method method--get">GET</span>/analytics</span>
+            <span class="feature-desc">Full history and engagement stats for every post — impressions, clicks, shares, and reach across all connected platforms.</span>
+            <span class="feature-tag feature-tag--new">New</span>
           </div>
-
-          <div class="feature-card fade-up fade-up--delay-4">
-            <div class="feature-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            <div class="feature-card-title">Direct messages</div>
-            <p class="feature-card-desc">Send direct messages and platform DMs. Build inbox management and automated response workflows at scale.</p>
-            <div class="feature-card-endpoint"><span class="method-badge post">POST</span>/api/message</div>
+          <div class="feature-row">
+            <span class="feature-num">04</span>
+            <span class="feature-endpoint"><span class="method method--post">POST</span>/comment</span>
+            <span class="feature-desc">Retrieve, add, and manage comments on any post programmatically. Moderate at scale without logging in.</span>
+            <span></span>
           </div>
-
-          <div class="feature-card fade-up fade-up--delay-5">
-            <div class="feature-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </div>
-            <div class="feature-card-title">Webhooks</div>
-            <p class="feature-card-desc">Real-time event notifications when posts publish, fail, or receive engagement. Build reactive pipelines without polling.</p>
-            <div class="feature-card-endpoint"><span class="method-badge post">POST</span>/api/webhooks</div>
+          <div class="feature-row">
+            <span class="feature-num">05</span>
+            <span class="feature-endpoint"><span class="method method--post">POST</span>/message</span>
+            <span class="feature-desc">Send direct messages and platform DMs. Build inbox management and automated response workflows.</span>
+            <span></span>
           </div>
-
-          <div class="feature-card fade-up fade-up--delay-6">
-            <div class="feature-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
-            </div>
-            <div class="feature-card-title">Auto hashtags <span class="badge">AI</span></div>
-            <p class="feature-card-desc">AI-powered hashtag suggestions based on trending data and your content. Maximize organic reach automatically.</p>
-            <div class="feature-card-endpoint"><span class="method-badge get">GET</span>/api/auto-hashtags</div>
+          <div class="feature-row">
+            <span class="feature-num">06</span>
+            <span class="feature-endpoint"><span class="method method--post">POST</span>/webhooks</span>
+            <span class="feature-desc">Real-time event notifications when posts publish, fail, or receive engagement. Build reactive pipelines.</span>
+            <span></span>
           </div>
-
+          <div class="feature-row">
+            <span class="feature-num">07</span>
+            <span class="feature-endpoint"><span class="method method--get">GET</span>/auto-hashtags</span>
+            <span class="feature-desc">AI-powered hashtag suggestions based on trending data and your content. Maximize organic reach automatically.</span>
+            <span></span>
+          </div>
+          <div class="feature-row">
+            <span class="feature-num">08</span>
+            <span class="feature-endpoint"><span class="method method--post">POST</span>/ads-boost</span>
+            <span class="feature-desc">Convert posts into Facebook Ads and Google Business promotions programmatically.</span>
+            <span class="feature-tag feature-tag--pro">Pro</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <div class="section-divider"></div>
+    <div class="rule"></div>
 
     <!-- ENDPOINTS -->
     <section class="section-endpoints">
       <div class="container-wide">
-        <span class="section-eyebrow fade-up">REST surface</span>
-        <h2 class="section-heading fade-up">Clean, predictable endpoints</h2>
-        <p class="section-sub fade-up">Standard REST conventions. JSON in, JSON out. No custom query languages or proprietary formats.</p>
+        <span class="section-overline reveal">REST surface</span>
+        <h2 class="section-heading reveal">Clean, predictable endpoints</h2>
+        <p class="section-sub">Standard REST conventions. JSON in, JSON out. No custom query languages or proprietary formats.</p>
         <div class="endpoints-grid">
-          <div class="endpoint-card fade-up fade-up--delay-1">
-            <div class="endpoint-header"><span class="endpoint-method-tag post">POST</span><span class="endpoint-path">/api/post</span></div>
+          <div class="endpoint-card">
+            <div class="endpoint-header"><span class="method method--post">POST</span><span class="endpoint-path">/api/post</span></div>
             <p class="endpoint-desc">Create and publish a post to one or more platforms</p>
           </div>
-          <div class="endpoint-card fade-up fade-up--delay-2">
-            <div class="endpoint-header"><span class="endpoint-method-tag get">GET</span><span class="endpoint-path">/api/post</span></div>
+          <div class="endpoint-card">
+            <div class="endpoint-header"><span class="method method--get">GET</span><span class="endpoint-path">/api/post</span></div>
             <p class="endpoint-desc">Retrieve post history, status, and platform-specific IDs</p>
           </div>
-          <div class="endpoint-card fade-up fade-up--delay-3">
-            <div class="endpoint-header"><span class="endpoint-method-tag del">DELETE</span><span class="endpoint-path">/api/post</span></div>
+          <div class="endpoint-card">
+            <div class="endpoint-header"><span class="method method--del">DELETE</span><span class="endpoint-path">/api/post</span></div>
             <p class="endpoint-desc">Delete a post from all platforms by Ayrshare post ID</p>
           </div>
-          <div class="endpoint-card fade-up fade-up--delay-4">
-            <div class="endpoint-header"><span class="endpoint-method-tag get">GET</span><span class="endpoint-path">/api/analytics/post</span></div>
+          <div class="endpoint-card">
+            <div class="endpoint-header"><span class="method method--get">GET</span><span class="endpoint-path">/api/analytics/post</span></div>
             <p class="endpoint-desc">Fetch engagement metrics for any post across all platforms</p>
           </div>
-          <div class="endpoint-card fade-up fade-up--delay-5">
-            <div class="endpoint-header"><span class="endpoint-method-tag post">POST</span><span class="endpoint-path">/api/comment</span></div>
+          <div class="endpoint-card">
+            <div class="endpoint-header"><span class="method method--post">POST</span><span class="endpoint-path">/api/comment</span></div>
             <p class="endpoint-desc">Add or reply to comments on published posts</p>
           </div>
-          <div class="endpoint-card fade-up fade-up--delay-6">
-            <div class="endpoint-header"><span class="endpoint-method-tag get">GET</span><span class="endpoint-path">/api/comment</span></div>
+          <div class="endpoint-card">
+            <div class="endpoint-header"><span class="method method--get">GET</span><span class="endpoint-path">/api/comment</span></div>
             <p class="endpoint-desc">Retrieve all comments for a given post or profile</p>
           </div>
-          <div class="endpoint-card fade-up fade-up--delay-1">
-            <div class="endpoint-header"><span class="endpoint-method-tag get">GET</span><span class="endpoint-path">/api/user</span></div>
+          <div class="endpoint-card">
+            <div class="endpoint-header"><span class="method method--get">GET</span><span class="endpoint-path">/api/user</span></div>
             <p class="endpoint-desc">Fetch connected profile details, follower counts, bios</p>
           </div>
-          <div class="endpoint-card fade-up fade-up--delay-2">
-            <div class="endpoint-header"><span class="endpoint-method-tag post">POST</span><span class="endpoint-path">/api/shorten</span></div>
+          <div class="endpoint-card">
+            <div class="endpoint-header"><span class="method method--post">POST</span><span class="endpoint-path">/api/shorten</span></div>
             <p class="endpoint-desc">Shorten URLs with click tracking before including in posts</p>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="section-divider"></div>
+    <div class="rule"></div>
 
-    <!-- TESTIMONIALS -->
+    <!-- TESTIMONIALS: pull-quote format — NO star ratings, NO avatar gradient pills -->
     <section class="section-social">
       <div class="container-wide">
-        <span class="section-eyebrow fade-up">Trusted by developers</span>
-        <h2 class="section-heading fade-up">What teams are shipping</h2>
+        <span class="section-overline reveal">Trusted by developers</span>
+        <h2 class="section-heading reveal">What teams are shipping</h2>
         <div class="testimonials-grid">
-          <div class="testimonial-card fade-up fade-up--delay-1">
-            <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-card">
+            <span class="testimonial-quote-mark">"</span>
             <p class="testimonial-text">The Ayrshare social media API is so much better than all the other options out there. And I love the docs.</p>
-            <div class="testimonial-divider"></div>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar">CT</div>
-              <div>
-                <div class="testimonial-name">Chief Technology Officer</div>
-                <div class="testimonial-role">SaaS Real Estate Platform</div>
-              </div>
-            </div>
+            <p class="testimonial-attribution"><strong>CTO</strong> — SaaS Real Estate Platform</p>
           </div>
-          <div class="testimonial-card fade-up fade-up--delay-2">
-            <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-card">
+            <span class="testimonial-quote-mark">"</span>
             <p class="testimonial-text">We saved a ton of time integrating Ayrshare. It's a no-brainer for any product that needs social posting.</p>
-            <div class="testimonial-divider"></div>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ec4899, #8B5CF6);">HP</div>
-              <div>
-                <div class="testimonial-name">Head of Product</div>
-                <div class="testimonial-role">Digital Asset Platform</div>
-              </div>
-            </div>
+            <p class="testimonial-attribution"><strong>Head of Product</strong> — Digital Asset Platform</p>
           </div>
-          <div class="testimonial-card fade-up fade-up--delay-3">
-            <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-card">
+            <span class="testimonial-quote-mark">"</span>
             <p class="testimonial-text">Replaced three separate social media APIs with one. Our integration went from 3 weeks to 2 days.</p>
-            <div class="testimonial-divider"></div>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" style="background: linear-gradient(135deg, #10b981, #635BFF);">SE</div>
-              <div>
-                <div class="testimonial-name">Senior Engineer</div>
-                <div class="testimonial-role">Marketing SaaS</div>
-              </div>
-            </div>
+            <p class="testimonial-attribution"><strong>Senior Engineer</strong> — Marketing SaaS</p>
           </div>
-          <div class="testimonial-card fade-up fade-up--delay-4">
-            <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-card">
+            <span class="testimonial-quote-mark">"</span>
             <p class="testimonial-text">Webhooks + scheduling + analytics all in one place. We ditched our custom social pipeline entirely.</p>
-            <div class="testimonial-divider"></div>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">TL</div>
-              <div>
-                <div class="testimonial-name">Tech Lead</div>
-                <div class="testimonial-role">B2B Content Platform</div>
-              </div>
-            </div>
+            <p class="testimonial-attribution"><strong>Tech Lead</strong> — B2B Content Platform</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- CTA: solid primary blue — no gradient, no radial glows -->
     <section class="section-cta">
       <div class="container">
-        <div class="cta-badge">Get started today</div>
-        <h2 class="cta-heading">Start posting<br><span class="gradient-text">today</span></h2>
+        <span class="cta-overline">Get started today</span>
+        <h2 class="cta-heading">Start posting today</h2>
         <p class="cta-sub">Free API key. No credit card. 50 posts/month included.</p>
         <div class="cta-actions">
-          <a class="btn-cta-primary" href="#">
+          <a class="btn-cta-white" href="#">
             Get Free API Key
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a class="btn-cta-secondary" href="#">
-            Read Documentation
-          </a>
+          <a class="btn-cta-ghost" href="#">Read Documentation</a>
         </div>
         <p class="cta-note">Free plan includes 50 posts/month. Upgrade anytime.</p>
       </div>
@@ -923,21 +773,16 @@ response = api.<span class="fn">post</span>({
   </footer>
 
   <script>
-    // Nav scroll behavior — transparent → frosted glass
+    // Nav: solid white + border-bottom on scroll (no glassmorphism)
     (function() {
       var nav = document.getElementById('nav');
       var ticking = false;
-      function updateNav() {
-        nav.classList.toggle('nav-header--scrolled', window.scrollY > 20);
-        ticking = false;
-      }
-      window.addEventListener('scroll', function() {
-        if (!ticking) { requestAnimationFrame(updateNav); ticking = true; }
-      });
-      updateNav();
+      function update() { nav.classList.toggle('nav-header--scrolled', window.scrollY > 10); ticking = false; }
+      window.addEventListener('scroll', function() { if (!ticking) { requestAnimationFrame(update); ticking = true; } });
+      update();
     })();
 
-    // Code tab switcher
+    // Code tabs
     document.querySelectorAll('.code-tab').forEach(function(btn) {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.code-tab').forEach(function(b) { b.classList.remove('active'); });
@@ -947,19 +792,13 @@ response = api.<span class="fn">post</span>({
       });
     });
 
-    // Smooth fade-up entrance animations
+    // Reveal: section headings only — not every element on the page
     var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.fade-up').forEach(function(el) {
-      observer.observe(el);
-    });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
   </script>
 </body>
 </html>
