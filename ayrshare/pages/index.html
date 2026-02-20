@@ -132,34 +132,37 @@
     }
 
     /* Gradient mesh background — Stripe-style */
+    /* No overflow:hidden here — clipping creates visible rectangular edges on white bg */
     .hero-gradient {
       position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none; z-index: 0; overflow: hidden;
+      pointer-events: none; z-index: 0;
     }
+    /* Single large radial glow, generous fade to transparent */
     .hero-gradient::before {
       content: '';
-      position: absolute; top: -200px; right: -150px;
-      width: 900px; height: 700px;
-      background: radial-gradient(ellipse at 60% 40%,
-        rgba(99, 91, 255, 0.18) 0%,
-        rgba(139, 92, 246, 0.10) 40%,
-        transparent 70%);
+      position: absolute; top: -20%; right: -5%;
+      width: 65%; height: 120%;
+      background: radial-gradient(ellipse at 60% 35%,
+        rgba(99, 91, 255, 0.13) 0%,
+        rgba(139, 92, 246, 0.07) 45%,
+        rgba(99, 91, 255, 0.02) 65%,
+        transparent 80%);
     }
     .hero-gradient::after {
       content: '';
-      position: absolute; top: -50px; right: 100px;
-      width: 600px; height: 500px;
-      background: radial-gradient(ellipse at 40% 60%,
-        rgba(236, 72, 153, 0.08) 0%,
-        rgba(99, 91, 255, 0.06) 50%,
-        transparent 70%);
+      position: absolute; top: 0; right: 10%;
+      width: 50%; height: 80%;
+      background: radial-gradient(ellipse at 50% 40%,
+        rgba(236, 72, 153, 0.06) 0%,
+        rgba(99, 91, 255, 0.03) 50%,
+        transparent 75%);
     }
     .hero-gradient-orb {
-      position: absolute; top: 60px; left: 50%;
-      width: 700px; height: 400px;
-      background: radial-gradient(ellipse at 70% 30%,
-        rgba(34, 211, 238, 0.07) 0%,
-        transparent 60%);
+      position: absolute; top: 5%; right: 8%;
+      width: 45%; height: 70%;
+      background: radial-gradient(ellipse at 60% 40%,
+        rgba(34, 211, 238, 0.05) 0%,
+        transparent 65%);
       animation: heroOrbShift 12s ease-in-out infinite alternate;
     }
     @keyframes heroOrbShift {
@@ -277,7 +280,9 @@
     }
     .code-tabs {
       display: flex; background: rgba(255,255,255,0.04);
-      border-bottom: 1px solid rgba(255,255,255,0.06); overflow-x: auto;
+      border-bottom: 1px solid rgba(255,255,255,0.08); overflow-x: auto;
+      /* Must explicitly set dark bg — parent overflow:hidden doesn't guarantee inheritance */
+      background-color: #161d2e;
     }
     .code-tab {
       font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500;
