@@ -138,7 +138,7 @@
         linear-gradient(to right, #fff 0%, transparent 12%, transparent 88%, #fff 100%),
         linear-gradient(to bottom, #fff 0%, transparent 18%, transparent 80%, #fff 100%);
     }
-    .section-hero .container { position: relative; z-index: 1; }
+    .section-hero .container-wide { position: relative; z-index: 1; }
 
     /* Plain uppercase overline — NOT a pill badge */
     .hero-overline {
@@ -189,6 +189,45 @@
       letter-spacing: -0.04em; line-height: 1; display: block; margin-bottom: 2px;
     }
     .stat-label { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+    /* ===== HERO GRID — two columns: text left, canvas right ===== */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+    }
+    .hero-visual {
+      position: relative;
+      background: var(--color-surface-dark);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+    #dataflow-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      display: block;
+    }
+    .hero-visual-legend {
+      position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 14px; white-space: nowrap;
+      background: rgba(0,0,0,0.48);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 6px;
+      padding: 5px 14px;
+      z-index: 1;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.5);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .legend-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .legend-dot--out { background: #1664D8; }
+    .legend-dot--in  { background: rgba(200,215,255,0.55); }
 
     /* ===== DIVIDER ===== */
     .rule { height: 1px; background: var(--color-border); }
@@ -392,6 +431,7 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       :root { --text-display: 3rem; }
+      .hero-grid { gap: var(--space-10); }
       .feature-row { grid-template-columns: 2.5rem 180px 1fr; }
       .feature-row .feature-tag { display: none; }
       .footer-grid { grid-template-columns: repeat(2, 1fr); }
@@ -401,6 +441,8 @@
       .nav-links .nav-link { display: none; }
       .nav-sep { display: none; }
       .section-hero { padding: 120px 0 72px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
       .hero-stats { gap: var(--space-8); }
       .feature-row { grid-template-columns: 2.5rem 1fr; gap: var(--space-3); }
       .feature-endpoint { grid-column: 2; }
@@ -439,29 +481,45 @@
 
   <main>
 
-    <!-- HERO: dot grid bg, plain overline, solid text, neutral buttons -->
+    <!-- HERO: dot grid bg, two-column with data flow canvas -->
     <section class="section-hero">
-      <div class="container">
-        <span class="hero-overline">Social Media Infrastructure</span>
-        <h1 class="hero-heading">
-          The developer API<br>
-          for <span class="accent">social media</span>
-        </h1>
-        <p class="hero-sub">One API to post, schedule, and analyze across 13+ social networks. Build social media features into your product in minutes, not months.</p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="#">
-            Get Started Free
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a class="btn-outline" href="#">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-            Read the Docs
-          </a>
-        </div>
-        <div class="hero-stats">
-          <div><span class="stat-num">13+</span><span class="stat-label">Social platforms</span></div>
-          <div><span class="stat-num">1M+</span><span class="stat-label">Posts sent via API</span></div>
-          <div><span class="stat-num">8</span><span class="stat-label">SDK languages</span></div>
+      <div class="container-wide">
+        <div class="hero-grid">
+
+          <!-- Left: text content -->
+          <div class="hero-content">
+            <span class="hero-overline">Social Media Infrastructure</span>
+            <h1 class="hero-heading">
+              The developer API<br>
+              for <span class="accent">social media</span>
+            </h1>
+            <p class="hero-sub">One API to post, schedule, and analyze across 13+ social networks. Build social media features into your product in minutes, not months.</p>
+            <div class="hero-actions">
+              <a class="btn-primary" href="#">
+                Get Started Free
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a class="btn-outline" href="#">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                Read the Docs
+              </a>
+            </div>
+            <div class="hero-stats">
+              <div><span class="stat-num">13+</span><span class="stat-label">Social platforms</span></div>
+              <div><span class="stat-num">1M+</span><span class="stat-label">Posts sent via API</span></div>
+              <div><span class="stat-num">8</span><span class="stat-label">SDK languages</span></div>
+            </div>
+          </div>
+
+          <!-- Right: animated data-flow visualization -->
+          <div class="hero-visual" aria-hidden="true">
+            <canvas id="dataflow-canvas"></canvas>
+            <div class="hero-visual-legend">
+              <div class="legend-item"><span class="legend-dot legend-dot--out"></span>Publishing</div>
+              <div class="legend-item"><span class="legend-dot legend-dot--in"></span>Analytics</div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -799,6 +857,203 @@ response = api.<span class="fn">post</span>({
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+    // ===== DATA FLOW VISUALIZATION =====
+    // Hub-and-spoke animation: Ayrshare API at center, platform nodes in ring.
+    // Blue particles (outgoing) = publishing posts to platforms.
+    // Colored particles (incoming) = analytics data flowing back.
+    (function() {
+      var canvas = document.getElementById('dataflow-canvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+
+      var PLATFORMS = [
+        { abbr: 'FB',  color: '#4A90D9' },   // Facebook
+        { abbr: 'X',   color: '#C8CDD1' },   // X/Twitter
+        { abbr: 'IG',  color: '#E1306C' },   // Instagram
+        { abbr: 'LI',  color: '#2D89CF' },   // LinkedIn
+        { abbr: 'TK',  color: '#6ECFCF' },   // TikTok
+        { abbr: 'YT',  color: '#FF4040' },   // YouTube
+        { abbr: 'PN',  color: '#E84040' },   // Pinterest
+        { abbr: 'BS',  color: '#3A9FFF' },   // Bluesky
+        { abbr: 'RD',  color: '#FF6314' },   // Reddit
+        { abbr: 'TH',  color: '#AAAAAA' },   // Threads
+      ];
+
+      var layout = null;
+      var particles = [];
+      var lastSpawn = 0;
+      var raf = null;
+      var resizeTimer = null;
+
+      function computeLayout() {
+        var parent = canvas.parentElement;
+        var w = parent.offsetWidth;
+        var h = parent.offsetHeight;
+        if (!w || !h) return;
+        var dpr = window.devicePixelRatio || 1;
+        canvas.width  = w * dpr;
+        canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        var cx   = w / 2;
+        var cy   = h / 2;
+        var ringR = Math.min(w, h) * 0.365;
+        var nodeR = Math.min(w, h) * 0.048;
+        var hubR  = Math.min(w, h) * 0.09;
+
+        var nodes = PLATFORMS.map(function(p, i) {
+          var angle = (i / PLATFORMS.length) * Math.PI * 2 - Math.PI / 2;
+          return {
+            x: cx + ringR * Math.cos(angle),
+            y: cy + ringR * Math.sin(angle),
+            abbr: p.abbr,
+            color: p.color,
+            r: nodeR
+          };
+        });
+
+        layout = { cx: cx, cy: cy, hubR: hubR, nodes: nodes, w: w, h: h };
+      }
+
+      function spawnParticle() {
+        if (!layout) return;
+        var node = layout.nodes[Math.floor(Math.random() * layout.nodes.length)];
+        var outgoing = Math.random() < 0.60;
+
+        var sx = outgoing ? layout.cx : node.x;
+        var sy = outgoing ? layout.cy : node.y;
+        var ex = outgoing ? node.x   : layout.cx;
+        var ey = outgoing ? node.y   : layout.cy;
+
+        // Slightly curved path — random perpendicular offset
+        var mx   = (sx + ex) / 2;
+        var my   = (sy + ey) / 2;
+        var dx   = ex - sx;
+        var dy   = ey - sy;
+        var perp = (Math.random() - 0.5) * 0.32;
+        var cpx  = mx - dy * perp;
+        var cpy  = my + dx * perp;
+
+        particles.push({
+          sx: sx, sy: sy, ex: ex, ey: ey,
+          cpx: cpx, cpy: cpy,
+          t: 0,
+          speed: 0.0065 + Math.random() * 0.005,
+          color: outgoing ? '#1664D8' : node.color,
+          r: outgoing ? 3.2 : 2.6
+        });
+      }
+
+      function draw(ts) {
+        if (!layout) { raf = requestAnimationFrame(draw); return; }
+
+        ctx.clearRect(0, 0, layout.w, layout.h);
+
+        // Subtle spoke lines
+        layout.nodes.forEach(function(node) {
+          ctx.beginPath();
+          ctx.moveTo(layout.cx, layout.cy);
+          ctx.lineTo(node.x, node.y);
+          ctx.strokeStyle = 'rgba(255,255,255,0.055)';
+          ctx.lineWidth = 0.75;
+          ctx.stroke();
+        });
+
+        // Platform nodes
+        layout.nodes.forEach(function(node) {
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(15,22,40,0.95)';
+          ctx.fill();
+          ctx.strokeStyle = node.color + '70';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          ctx.fillStyle = node.color;
+          ctx.font = 'bold ' + Math.round(node.r * 0.68) + 'px "Figtree",system-ui,sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(node.abbr, node.x, node.y);
+        });
+
+        // Hub — radial glow + filled circle
+        var glow = ctx.createRadialGradient(layout.cx, layout.cy, layout.hubR * 0.2, layout.cx, layout.cy, layout.hubR * 2.6);
+        glow.addColorStop(0, 'rgba(22,100,216,0.20)');
+        glow.addColorStop(1, 'rgba(22,100,216,0)');
+        ctx.beginPath();
+        ctx.arc(layout.cx, layout.cy, layout.hubR * 2.6, 0, Math.PI * 2);
+        ctx.fillStyle = glow;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(layout.cx, layout.cy, layout.hubR, 0, Math.PI * 2);
+        ctx.fillStyle = '#1664D8';
+        ctx.fill();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold ' + Math.round(layout.hubR * 0.42) + 'px "Figtree",system-ui,sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('API', layout.cx, layout.cy);
+
+        // Particles — quadratic bezier
+        particles = particles.filter(function(p) { return p.t <= 1.05; });
+        particles.forEach(function(p) {
+          var t  = Math.min(p.t, 1);
+          var mt = 1 - t;
+          var x  = mt * mt * p.sx + 2 * mt * t * p.cpx + t * t * p.ex;
+          var y  = mt * mt * p.sy + 2 * mt * t * p.cpy + t * t * p.ey;
+
+          // Soft halo
+          var halo = ctx.createRadialGradient(x, y, 0, x, y, p.r * 3.5);
+          halo.addColorStop(0, p.color + '55');
+          halo.addColorStop(1, p.color + '00');
+          ctx.beginPath();
+          ctx.arc(x, y, p.r * 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = halo;
+          ctx.fill();
+
+          // Core dot
+          ctx.beginPath();
+          ctx.arc(x, y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+
+          p.t += p.speed;
+        });
+
+        // Spawn logic — staggered interval
+        if (ts - lastSpawn > 250 + Math.random() * 200) {
+          spawnParticle();
+          lastSpawn = ts;
+        }
+
+        raf = requestAnimationFrame(draw);
+      }
+
+      function start() {
+        computeLayout();
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() { particles = []; start(); }, 220);
+      });
+
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          cancelAnimationFrame(raf);
+        } else {
+          raf = requestAnimationFrame(draw);
+        }
+      });
+
+      // Defer start so the panel has its rendered dimensions
+      setTimeout(start, 60);
+    })();
   </script>
 </body>
 </html>
