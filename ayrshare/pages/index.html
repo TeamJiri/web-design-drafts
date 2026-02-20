@@ -7,998 +7,644 @@
   <meta name="description" content="One API to post to 13+ social networks. Build social media features into your product in minutes, not months.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* ===== RESET & TOKENS ===== */
+    /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
+    /* ===== TOKENS — Developer Terminal Archetype ===== */
     :root {
-      --color-bg: #0A0A1A;
-      --color-bg-alt: #0F0F23;
-      --color-bg-card: #141428;
-      --color-bg-card-hover: #1A1A36;
-      --color-bg-code: #0D0D1F;
-      --color-surface: #1E1E3A;
-      --color-border: rgba(124, 58, 237, 0.15);
-      --color-border-subtle: rgba(255, 255, 255, 0.06);
-      --color-text: #E2E8F0;
-      --color-text-muted: #94A3B8;
-      --color-text-dim: #64748B;
-      --color-heading: #F8FAFC;
-      --color-primary: #7C3AED;
-      --color-primary-light: #A78BFA;
-      --color-primary-glow: rgba(124, 58, 237, 0.4);
-      --color-accent: #06B6D4;
-      --color-accent-light: #22D3EE;
-      --color-accent-glow: rgba(6, 182, 212, 0.3);
-      --color-success: #10B981;
-      --color-cta: #7C3AED;
-      --color-cta-hover: #6D28D9;
-      --gradient-text: linear-gradient(135deg, #A78BFA 0%, #06B6D4 50%, #22D3EE 100%);
-      --gradient-hero: linear-gradient(180deg, #0A0A1A 0%, #0F0F23 50%, #0A0A1A 100%);
-      --gradient-cta: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
-      --gradient-card-border: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(6,182,212,0.15));
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
-      --text-xs: 0.75rem; --text-sm: 0.875rem; --text-base: 1rem;
-      --text-lg: 1.125rem; --text-xl: 1.25rem; --text-2xl: 1.5rem;
-      --text-3xl: 1.875rem; --text-4xl: 2.25rem; --text-5xl: 3rem;
-      --text-6xl: 3.75rem; --text-7xl: 4.5rem;
-      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
-      --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;
-      --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
-      --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
-      --radius-sm: 6px; --radius-md: 10px; --radius-lg: 16px; --radius-xl: 24px;
-      --radius-full: 9999px;
-      --shadow-card: 0 4px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(124,58,237,0.08);
-      --shadow-glow: 0 0 60px rgba(124,58,237,0.15);
-      --container-max: 1200px;
-      --container-padding: 1.5rem;
+      --color-bg:            #0D1117;
+      --color-bg-alt:        #161B22;
+      --color-bg-card:       #161B22;
+      --color-border:        rgba(255,255,255,0.08);
+      --color-border-accent: rgba(34,211,238,0.3);
+      --color-text:          #C9D1D9;
+      --color-text-muted:    #8B949E;
+      --color-text-dim:      #484F58;
+      --color-heading:       #F0F6FC;
+      --color-accent:        #22D3EE;
+      --color-accent-dim:    rgba(34,211,238,0.12);
+      --color-success:       #3FB950;
+      --color-warning:       #D29922;
+      --color-error:         #F85149;
+      --color-purple:        #D2A8FF;
+      --font-mono: 'IBM Plex Mono', 'Fira Code', Consolas, monospace;
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --text-xs:   0.75rem;
+      --text-sm:   0.875rem;
+      --text-base: 1rem;
+      --text-lg:   1.125rem;
+      --text-2xl:  1.5rem;
+      --text-3xl:  1.875rem;
+      --text-4xl:  2.25rem;
+      --text-display: 3.5rem;
+      --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+      --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+      --space-12: 3rem; --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
+      --content-width: 720px;
+      --wide-width: 1100px;
     }
 
-    html { scroll-behavior: smooth; }
     body {
       font-family: var(--font-sans);
       background: var(--color-bg);
       color: var(--color-text);
+      font-size: var(--text-base);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    .container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding); }
 
-    /* ===== NOISE OVERLAY ===== */
-    body::before {
-      content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 9999; opacity: 0.04;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-repeat: repeat; background-size: 256px 256px;
-    }
+    a { color: var(--color-accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    /* ===== TYPOGRAPHY ===== */
-    .section-label {
-      font-size: var(--text-xs);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--color-accent);
-      margin-bottom: var(--space-4);
-    }
-    .section-heading {
-      font-size: var(--text-4xl);
-      font-weight: 800;
-      color: var(--color-heading);
-      line-height: 1.15;
-      margin-bottom: var(--space-6);
-    }
-    .section-sub {
-      font-size: var(--text-lg);
-      color: var(--color-text-muted);
-      max-width: 600px;
-      line-height: 1.7;
-    }
-    .gradient-text {
-      background: var(--gradient-text);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    /* Subtle scanline overlay */
+    body::after {
+      content: '';
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 9999;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.025) 0px,
+        rgba(0,0,0,0.025) 1px,
+        transparent 1px,
+        transparent 3px
+      );
     }
 
-    /* ===== BUTTONS ===== */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      font-family: var(--font-sans); font-weight: 600; font-size: var(--text-sm);
-      border: none; border-radius: var(--radius-full); cursor: pointer;
-      padding: 0.75rem 1.75rem;
-      transition: all 0.2s ease;
-    }
-    .btn-primary {
-      background: var(--gradient-cta); color: #fff;
-      box-shadow: 0 0 20px var(--color-primary-glow);
-    }
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 30px var(--color-primary-glow), 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .btn-ghost {
-      background: transparent; color: var(--color-text);
-      border: 1px solid var(--color-border);
-    }
-    .btn-ghost:hover { border-color: var(--color-primary-light); color: var(--color-primary-light); }
-    .btn-lg { padding: 0.875rem 2.25rem; font-size: var(--text-base); }
-
-    /* ===== NAV ===== */
+    /* ===== NAV — Static bar ===== */
     .nav-header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: var(--space-4) 0;
-      transition: padding 0.3s ease;
+      background: rgba(13,17,23,0.97);
+      border-bottom: 1px solid var(--color-border);
+      backdrop-filter: blur(8px);
     }
-    .nav-header--scrolled { padding: var(--space-2) 0; }
     .nav-header__inner {
-      max-width: 100%; margin: 0 auto;
+      max-width: var(--wide-width); margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0.75rem var(--space-6);
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: var(--radius-xl);
-      transition: max-width 0.3s ease, background 0.3s ease, border-color 0.3s ease,
-                  border-radius 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
-    }
-    .nav-header--scrolled .nav-header__inner {
-      max-width: 900px;
-      background: rgba(10, 10, 26, 0.85);
-      backdrop-filter: blur(20px) saturate(1.2);
-      -webkit-backdrop-filter: blur(20px) saturate(1.2);
-      border-color: var(--color-border);
-      border-radius: var(--radius-full);
-      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+      padding: 0 var(--space-8); height: 52px;
     }
     .nav-logo {
-      font-size: var(--text-xl); font-weight: 700; color: var(--color-heading);
-      display: flex; align-items: center; gap: var(--space-2);
+      font-family: var(--font-mono); font-size: var(--text-sm);
+      font-weight: 700; color: var(--color-heading);
+      letter-spacing: -0.02em;
     }
-    .nav-logo svg { width: 28px; height: 28px; }
-    .nav-links { display: flex; align-items: center; gap: var(--space-6); list-style: none; }
-    .nav-links a {
-      font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted);
-      transition: color 0.2s ease;
+    .nav-logo .acc { color: var(--color-accent); }
+    .nav-links { display: flex; align-items: center; list-style: none; gap: 0; }
+    .nav-links li { display: flex; align-items: center; }
+    .nav-links li + li::before {
+      content: '/'; color: var(--color-text-dim);
+      padding: 0 0.6rem; font-family: var(--font-mono); font-size: var(--text-sm);
     }
-    .nav-links a:hover { color: var(--color-heading); }
+    .nav-link {
+      font-family: var(--font-mono); font-size: var(--text-sm);
+      color: var(--color-text-muted); transition: color 0s;
+    }
+    .nav-link:hover { color: var(--color-accent); text-decoration: none; }
+    .nav-cta {
+      font-family: var(--font-mono); font-size: var(--text-sm);
+      background: transparent; color: var(--color-accent);
+      border: 1px solid var(--color-border-accent);
+      padding: 0.3rem 0.8rem; cursor: pointer;
+      transition: background 0s, color 0s; display: inline-block;
+    }
+    .nav-cta:hover {
+      background: var(--color-accent); color: var(--color-bg);
+      text-decoration: none;
+    }
+
+    /* ===== CONTAINERS ===== */
+    .container { max-width: var(--content-width); margin: 0 auto; padding: 0 var(--space-6); }
+    .container-wide { max-width: var(--wide-width); margin: 0 auto; padding: 0 var(--space-8); }
+    .section-rule { height: 1px; background: var(--color-border); }
 
     /* ===== HERO ===== */
     .section-hero {
-      position: relative; overflow: hidden;
-      padding: 10rem 0 6rem;
-      min-height: 100vh;
-      display: flex; align-items: center;
+      position: relative; min-height: 100vh; padding: 140px 0 80px;
+      display: flex; align-items: center; overflow: hidden;
     }
-    .section-hero__bg {
-      position: absolute; inset: 0; z-index: 0;
-      pointer-events: none; overflow: hidden;
-    }
-    .section-hero__glow-1 {
-      position: absolute; top: -200px; left: -100px;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%);
-      opacity: 0.4; filter: blur(80px);
-    }
-    .section-hero__glow-2 {
-      position: absolute; bottom: -200px; right: -100px;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
-      opacity: 0.3; filter: blur(80px);
-    }
-    .section-hero__container {
-      position: relative; z-index: 2;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: var(--space-16); align-items: center;
-      max-width: var(--container-max); margin: 0 auto;
-      padding: 0 var(--container-padding);
-    }
-    .section-hero__text { max-width: 560px; }
-    .section-hero__badge {
-      display: inline-flex; align-items: center; gap: var(--space-2);
-      padding: var(--space-1) var(--space-4);
-      background: rgba(124, 58, 237, 0.1);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-full);
-      font-size: var(--text-xs); font-weight: 500;
-      color: var(--color-primary-light);
-      margin-bottom: var(--space-6);
-    }
-    .section-hero__badge .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--color-success);
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
-    }
-    .section-hero__heading {
-      font-size: var(--text-7xl); font-weight: 800;
-      line-height: 1.05; color: var(--color-heading);
-      margin-bottom: var(--space-6);
-    }
-    .section-hero__sub {
-      font-size: var(--text-xl); color: var(--color-text-muted);
-      line-height: 1.7; margin-bottom: var(--space-8);
-      max-width: 480px;
-    }
-    .section-hero__ctas { display: flex; gap: var(--space-4); align-items: center; }
-    .section-hero__code {
-      background: var(--color-bg-code);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-glow);
-    }
-    .code-header {
-      display: flex; align-items: center; gap: var(--space-2);
-      padding: var(--space-3) var(--space-4);
-      background: rgba(255,255,255,0.03);
-      border-bottom: 1px solid var(--color-border-subtle);
-    }
-    .code-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .code-dot--red { background: #EF4444; }
-    .code-dot--yellow { background: #EAB308; }
-    .code-dot--green { background: #22C55E; }
-    .code-filename {
-      margin-left: var(--space-3);
-      font-family: var(--font-mono); font-size: var(--text-xs);
-      color: var(--color-text-dim);
-    }
-    .code-body {
-      padding: var(--space-6);
+    .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .section-hero .container { position: relative; z-index: 1; }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-prompt {
       font-family: var(--font-mono); font-size: var(--text-sm);
-      line-height: 1.8; overflow-x: auto; white-space: pre;
+      color: var(--color-text-dim); margin-bottom: var(--space-6);
+    }
+    .hero-prompt .cmd { color: var(--color-accent); }
+    .hero-prompt::before { content: '$ '; color: var(--color-success); }
+
+    .hero-heading {
+      font-family: var(--font-mono); font-size: var(--text-display);
+      font-weight: 700; color: var(--color-heading);
+      line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: var(--space-6);
+    }
+    .hero-heading .acc { color: var(--color-accent); }
+    .cursor {
+      display: inline-block; width: 3px; height: 0.9em;
+      background: var(--color-accent); margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1.1s step-end infinite;
+    }
+    .hero-sub {
+      font-size: var(--text-lg); color: var(--color-text-muted);
+      max-width: 520px; margin-bottom: var(--space-10); line-height: 1.7;
+    }
+    .hero-actions { display: flex; align-items: center; gap: var(--space-6); flex-wrap: wrap; }
+    .btn-primary {
+      font-family: var(--font-mono); font-size: var(--text-sm);
+      background: var(--color-accent); color: var(--color-bg);
+      padding: 0.55rem 1.3rem; border: 1px solid var(--color-accent);
+      cursor: pointer; display: inline-block; transition: background 0s, color 0s;
+    }
+    .btn-primary:hover { background: transparent; color: var(--color-accent); text-decoration: none; }
+    .btn-ghost {
+      font-family: var(--font-mono); font-size: var(--text-sm);
       color: var(--color-text-muted);
+      display: inline-flex; align-items: center; gap: 0.4rem;
     }
-    .code-body .kw { color: #C084FC; }
-    .code-body .fn { color: #22D3EE; }
-    .code-body .str { color: #34D399; }
-    .code-body .url { color: #FBBF24; }
-    .code-body .prop { color: #A78BFA; }
-    .code-body .cm { color: #475569; }
-    .code-body .num { color: #FB923C; }
-    .code-body .punc { color: #64748B; }
+    .btn-ghost::before { content: '→'; }
+    .btn-ghost:hover { color: var(--color-heading); text-decoration: none; }
 
-    /* ===== PLATFORM STRIP ===== */
-    .section-platforms {
-      padding: var(--space-16) 0;
-      border-top: 1px solid var(--color-border-subtle);
-      border-bottom: 1px solid var(--color-border-subtle);
-      position: relative; z-index: 2;
+    .hero-stats {
+      margin-top: var(--space-16); padding-top: var(--space-8);
+      border-top: 1px solid var(--color-border);
+      display: flex; gap: var(--space-12); flex-wrap: wrap;
     }
+    .hero-stat__number {
+      font-family: var(--font-mono); font-size: var(--text-2xl);
+      font-weight: 700; color: var(--color-accent); display: block;
+    }
+    .hero-stat__label {
+      font-family: var(--font-mono); font-size: var(--text-xs);
+      color: var(--color-text-dim); text-transform: uppercase; letter-spacing: 0.08em;
+    }
+
+    /* ===== PLATFORMS ===== */
+    .section-platforms { padding: var(--space-16) 0; }
     .platforms-label {
-      text-align: center; font-size: var(--text-sm);
-      color: var(--color-text-dim); margin-bottom: var(--space-8);
+      font-family: var(--font-mono); font-size: var(--text-xs);
+      color: var(--color-text-dim); text-transform: uppercase;
+      letter-spacing: 0.12em; margin-bottom: var(--space-4);
     }
-    .platforms-row {
-      display: flex; align-items: center; justify-content: center;
-      gap: var(--space-8); flex-wrap: wrap;
-      max-width: var(--container-max); margin: 0 auto;
-      padding: 0 var(--container-padding);
+    .platforms-list { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; }
+    .platform-tag {
+      font-family: var(--font-mono); font-size: var(--text-xs);
+      color: var(--color-text-muted); border: 1px solid var(--color-border);
+      padding: 0.2rem 0.6rem; background: var(--color-bg-alt);
+      cursor: default;
     }
-    .platform-icon {
-      font-size: var(--text-sm); color: var(--color-text-dim);
-      font-weight: 500; display: flex; align-items: center; gap: var(--space-2);
-      transition: color 0.2s ease;
-    }
-    .platform-icon:hover { color: var(--color-text); }
-    .platform-icon svg { width: 20px; height: 20px; opacity: 0.5; }
+    .platform-tag:hover { border-color: var(--color-border-accent); color: var(--color-accent); }
 
-    /* ===== WHY CHOOSE ===== */
-    .section-why {
-      padding: var(--space-24) 0;
-      position: relative; z-index: 2;
+    /* ===== SECTION LABELS / HEADINGS ===== */
+    .section-label {
+      font-family: var(--font-mono); font-size: var(--text-xs);
+      color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: var(--space-4);
     }
-    .section-why__header { text-align: center; margin-bottom: var(--space-16); }
-    .section-why__header .section-sub { margin: 0 auto; }
-    .why-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-8);
+    .section-label::before { content: '// '; color: var(--color-text-dim); }
+    .section-heading {
+      font-family: var(--font-mono); font-size: var(--text-3xl);
+      font-weight: 700; color: var(--color-heading);
+      letter-spacing: -0.025em; line-height: 1.15; margin-bottom: var(--space-4);
     }
-    .why-card {
-      padding: var(--space-8);
-      background: var(--color-bg-card);
-      border: 1px solid var(--color-border-subtle);
-      border-radius: var(--radius-lg);
-      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .why-card:hover {
-      border-color: var(--color-border);
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-glow);
-    }
-    .why-card__icon {
-      width: 48px; height: 48px; margin-bottom: var(--space-6);
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--radius-md);
-      background: rgba(124, 58, 237, 0.1);
-    }
-    .why-card__icon svg { width: 24px; height: 24px; stroke: var(--color-primary-light); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .why-card__title {
-      font-size: var(--text-xl); font-weight: 700;
-      color: var(--color-heading); margin-bottom: var(--space-3);
-    }
-    .why-card__desc {
-      font-size: var(--text-base); color: var(--color-text-muted); line-height: 1.7;
-    }
-
-    /* ===== FEATURES GRID ===== */
-    .section-features {
-      padding: var(--space-24) 0;
-      background: var(--color-bg-alt);
-      position: relative; z-index: 2; overflow: hidden;
-    }
-    .section-features__glow {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 1000px; height: 600px;
-      background: radial-gradient(ellipse, rgba(124,58,237,0.08) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
-    }
-    .section-features__header { text-align: center; margin-bottom: var(--space-16); position: relative; z-index: 1; }
-    .section-features__header .section-sub { margin: 0 auto; }
-    .features-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-4);
-      position: relative; z-index: 1;
-    }
-    .feature-card {
-      padding: var(--space-6);
-      background: var(--color-bg-card);
-      border: 1px solid var(--color-border-subtle);
-      border-radius: var(--radius-md);
-      transition: border-color 0.3s ease, background 0.3s ease;
-    }
-    .feature-card:hover {
-      border-color: var(--color-border);
-      background: var(--color-bg-card-hover);
-    }
-    .feature-card__icon {
-      width: 36px; height: 36px; margin-bottom: var(--space-4);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .feature-card__icon svg { width: 20px; height: 20px; stroke: var(--color-accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .feature-card__title {
-      font-size: var(--text-sm); font-weight: 600;
-      color: var(--color-heading); margin-bottom: var(--space-2);
-    }
-    .feature-card__desc {
-      font-size: var(--text-xs); color: var(--color-text-dim); line-height: 1.6;
+    .section-sub {
+      font-size: var(--text-base); color: var(--color-text-muted);
+      max-width: 520px; line-height: 1.7; margin-bottom: var(--space-10);
     }
 
     /* ===== CODE SECTION ===== */
-    .section-code {
-      padding: var(--space-24) 0;
-      position: relative; z-index: 2;
-    }
-    .section-code__layout {
-      display: grid; grid-template-columns: 1fr 1.2fr;
-      gap: var(--space-16); align-items: center;
-    }
+    .section-code { padding: var(--space-20) 0; }
     .code-tabs {
-      display: flex; gap: var(--space-1); margin-bottom: 0;
-      padding: var(--space-3) var(--space-4);
-      background: rgba(255,255,255,0.03);
-      border-bottom: 1px solid var(--color-border-subtle);
+      display: flex; border-bottom: 1px solid var(--color-border);
+      background: var(--color-bg-alt); overflow-x: auto;
     }
     .code-tab {
-      padding: var(--space-2) var(--space-4);
       font-family: var(--font-mono); font-size: var(--text-xs);
-      color: var(--color-text-dim); cursor: pointer;
-      border-radius: var(--radius-sm);
-      border: none; background: none;
-      transition: all 0.2s ease;
+      color: var(--color-text-dim); padding: 0.5rem 1rem;
+      cursor: pointer; border: none; background: transparent;
+      border-right: 1px solid var(--color-border); white-space: nowrap;
+      transition: color 0s;
     }
-    .code-tab:hover { color: var(--color-text); }
-    .code-tab--active {
-      background: rgba(124,58,237,0.15);
-      color: var(--color-primary-light);
+    .code-tab.active {
+      color: var(--color-accent); background: var(--color-bg);
+      border-bottom: 1px solid var(--color-bg); margin-bottom: -1px;
     }
-    .code-panel { display: none; }
-    .code-panel--active { display: block; }
-    .code-block-large {
-      background: var(--color-bg-code);
+    .code-tab:hover:not(.active) { color: var(--color-text-muted); }
+    .code-panel {
+      background: var(--color-bg); border: 1px solid var(--color-border);
+      border-top: none; padding: var(--space-6); overflow-x: auto; display: none;
+    }
+    .code-panel.active { display: block; }
+    pre {
+      font-family: var(--font-mono); font-size: var(--text-sm);
+      line-height: 1.7; color: var(--color-text);
+    }
+    .kw  { color: #FF7B72; }
+    .fn  { color: #D2A8FF; }
+    .str { color: #A5D6FF; }
+    .cm  { color: var(--color-text-dim); font-style: italic; }
+    .prop{ color: #79C0FF; }
+    .acc { color: var(--color-accent); }
+
+    /* ===== FEATURES — Vertical list ===== */
+    .section-features { padding: var(--space-20) 0; background: var(--color-bg-alt); }
+    .feature-list { list-style: none; }
+    .feature-item {
+      display: flex; gap: var(--space-6); align-items: flex-start;
+      padding: var(--space-6) 0; border-bottom: 1px solid var(--color-border);
+      opacity: 0; transition: opacity 0.1s steps(1);
+    }
+    .feature-item.is-visible { opacity: 1; }
+    .feature-item:first-child { border-top: 1px solid var(--color-border); }
+    .feature-num { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-dim); min-width: 28px; padding-top: 2px; }
+    .feature-name { font-family: var(--font-mono); font-size: var(--text-base); font-weight: 600; color: var(--color-heading); min-width: 200px; }
+    .feature-name .tag {
+      font-size: var(--text-xs); color: var(--color-accent);
+      border: 1px solid var(--color-border-accent); padding: 0.1rem 0.35rem;
+      margin-left: 0.5rem; vertical-align: middle;
+    }
+    .feature-desc { font-size: var(--text-sm); color: var(--color-text-muted); flex: 1; line-height: 1.6; }
+
+    /* ===== ENDPOINTS GRID ===== */
+    .section-endpoints { padding: var(--space-20) 0; }
+    .endpoints-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: var(--color-border);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-glow);
     }
-    .code-block-large .code-body {
-      padding: var(--space-8); font-size: var(--text-sm); line-height: 1.9;
-    }
-    .code-response {
-      margin-top: var(--space-4);
-      padding: var(--space-4);
-      background: rgba(16, 185, 129, 0.06);
-      border: 1px solid rgba(16, 185, 129, 0.15);
-      border-radius: var(--radius-md);
-      font-family: var(--font-mono); font-size: var(--text-xs);
-      color: var(--color-success);
-    }
-    .code-response::before {
-      content: '// Response →';
-      display: block; margin-bottom: var(--space-2);
-      color: var(--color-text-dim); font-size: var(--text-xs);
-    }
+    .endpoint-card { background: var(--color-bg); padding: var(--space-6); }
+    .endpoint-card:hover { background: var(--color-bg-alt); }
+    .endpoint-method { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 600; margin-bottom: var(--space-2); }
+    .endpoint-method.post { color: var(--color-success); }
+    .endpoint-method.get  { color: var(--color-accent); }
+    .endpoint-method.del  { color: var(--color-error); }
+    .endpoint-path { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-heading); margin-bottom: var(--space-2); }
+    .endpoint-desc { font-size: var(--text-xs); color: var(--color-text-dim); line-height: 1.5; }
 
     /* ===== TESTIMONIALS ===== */
-    .section-testimonials {
-      padding: var(--space-24) 0;
-      background: var(--color-bg-alt);
-      position: relative; z-index: 2;
-    }
-    .section-testimonials__header { text-align: center; margin-bottom: var(--space-16); }
+    .section-social { padding: var(--space-20) 0; background: var(--color-bg-alt); }
     .testimonials-grid {
       display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-8);
+      gap: 1px; background: var(--color-border);
+      border: 1px solid var(--color-border); margin-top: var(--space-10);
     }
     .testimonial-card {
-      padding: var(--space-8);
-      background: var(--color-bg-card);
-      border: 1px solid var(--color-border-subtle);
-      border-radius: var(--radius-lg);
+      background: var(--color-bg); padding: var(--space-8);
+      opacity: 0; transition: opacity 0.1s steps(1);
     }
-    .testimonial-card__quote {
-      font-size: var(--text-lg); color: var(--color-text);
-      line-height: 1.7; margin-bottom: var(--space-6);
-      font-style: italic;
+    .testimonial-card.is-visible { opacity: 1; }
+    .testimonial-text {
+      font-size: var(--text-sm); color: var(--color-text); line-height: 1.7; margin-bottom: var(--space-6);
     }
-    .testimonial-card__quote::before { content: '\201C'; color: var(--color-primary-light); }
-    .testimonial-card__quote::after { content: '\201D'; color: var(--color-primary-light); }
-    .testimonial-card__author {
-      font-size: var(--text-sm); color: var(--color-text-dim);
-    }
-    .testimonial-card__author strong { color: var(--color-text-muted); font-weight: 600; }
-
-    /* ===== STATS ===== */
-    .section-stats {
-      padding: var(--space-16) 0;
-      position: relative; z-index: 2; overflow: hidden;
-    }
-    .section-stats__glow {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 800px; height: 400px;
-      background: radial-gradient(ellipse, rgba(6,182,212,0.1) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
-    }
-    .stats-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-8); position: relative; z-index: 1;
-      text-align: center;
-    }
-    .stat-item__value {
-      font-size: var(--text-5xl); font-weight: 800;
-      line-height: 1; margin-bottom: var(--space-2);
-    }
-    .stat-item__label {
-      font-size: var(--text-sm); color: var(--color-text-dim); font-weight: 500;
-    }
+    .testimonial-text::before { content: '"'; color: var(--color-accent); font-family: var(--font-mono); }
+    .testimonial-text::after  { content: '"'; color: var(--color-accent); font-family: var(--font-mono); }
+    .testimonial-author { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-dim); }
+    .testimonial-author strong { color: var(--color-text-muted); font-weight: 500; }
 
     /* ===== CTA ===== */
     .section-cta {
-      padding: var(--space-24) 0;
-      position: relative; z-index: 2; overflow: hidden;
-      text-align: center;
+      padding: var(--space-24) 0; text-align: center;
+      background: var(--color-bg-alt);
+      border-top: 1px solid var(--color-border-accent);
     }
-    .section-cta__glow {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, var(--color-primary-glow) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
-      animation: glowPulse 6s ease-in-out infinite;
+    .cta-pre { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-dim); margin-bottom: var(--space-4); }
+    .cta-pre::before { content: '> '; color: var(--color-accent); }
+    .cta-heading {
+      font-family: var(--font-mono); font-size: var(--text-4xl); font-weight: 700;
+      color: var(--color-heading); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: var(--space-4);
     }
-    @keyframes glowPulse {
-      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-      50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
-    }
-    .section-cta__content { position: relative; z-index: 1; }
-    .section-cta__heading {
-      font-size: var(--text-5xl); font-weight: 800;
-      color: var(--color-heading); margin-bottom: var(--space-6);
-    }
-    .section-cta__sub {
-      font-size: var(--text-lg); color: var(--color-text-muted);
-      margin-bottom: var(--space-8); max-width: 500px; margin-left: auto; margin-right: auto;
-    }
-    .section-cta__ctas { display: flex; gap: var(--space-4); justify-content: center; }
+    .cta-sub { font-size: var(--text-base); color: var(--color-text-muted); margin-bottom: var(--space-10); }
+    .cta-actions { display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; }
+    .cta-note { margin-top: var(--space-6); font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-dim); }
+    .cta-note::before { content: '# '; }
 
     /* ===== FOOTER ===== */
-    .site-footer {
-      padding: var(--space-16) 0 var(--space-8);
-      border-top: 1px solid var(--color-border-subtle);
-      position: relative; z-index: 2;
-    }
-    .footer-grid {
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: var(--space-12); margin-bottom: var(--space-12);
-    }
-    .footer-brand__desc {
-      font-size: var(--text-sm); color: var(--color-text-dim);
-      margin-top: var(--space-4); line-height: 1.7; max-width: 280px;
-    }
-    .footer-col__title {
-      font-size: var(--text-xs); font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--color-text-muted); margin-bottom: var(--space-4);
-    }
-    .footer-col__links { list-style: none; }
-    .footer-col__links li { margin-bottom: var(--space-2); }
-    .footer-col__links a {
-      font-size: var(--text-sm); color: var(--color-text-dim);
-      transition: color 0.2s ease;
-    }
-    .footer-col__links a:hover { color: var(--color-text); }
-    .footer-bottom {
-      border-top: 1px solid var(--color-border-subtle);
-      padding-top: var(--space-6);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .footer-bottom__copy { font-size: var(--text-xs); color: var(--color-text-dim); }
+    .site-footer { padding: var(--space-12) 0 var(--space-8); border-top: 1px solid var(--color-border); }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: var(--space-8); margin-bottom: var(--space-12); }
+    .footer-brand { font-family: var(--font-mono); font-size: var(--text-sm); font-weight: 700; color: var(--color-heading); margin-bottom: var(--space-3); }
+    .footer-tagline { font-size: var(--text-xs); color: var(--color-text-dim); line-height: 1.5; max-width: 220px; }
+    .footer-col-label { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-4); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+    .footer-link { font-size: var(--text-sm); color: var(--color-text-muted); }
+    .footer-link:hover { color: var(--color-accent); text-decoration: none; }
+    .footer-bottom { padding-top: var(--space-6); border-top: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4); }
+    .footer-copy { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-dim); }
     .footer-socials { display: flex; gap: var(--space-4); }
-    .footer-socials a { color: var(--color-text-dim); transition: color 0.2s; }
-    .footer-socials a:hover { color: var(--color-primary-light); }
-    .footer-socials svg { width: 18px; height: 18px; }
+    .footer-social { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-dim); }
+    .footer-social:hover { color: var(--color-accent); text-decoration: none; }
 
-    /* ===== SECTION DIVIDERS ===== */
-    .section-divider { height: 1px; background: var(--color-border-subtle); }
-
-    /* ===== FADE-IN ANIMATIONS ===== */
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
-    .fade-in--visible { opacity: 1; transform: translateY(0); }
+    /* ===== ENTRANCE ANIMATION (Mechanical — opacity snap) ===== */
+    .fade-in { opacity: 0; transition: opacity 0.1s steps(1); }
+    .fade-in.is-visible { opacity: 1; }
 
     /* ===== RESPONSIVE ===== */
-    @media (max-width: 1024px) {
-      .section-hero__container { grid-template-columns: 1fr; }
-      .section-hero__heading { font-size: var(--text-5xl); }
-      .features-grid { grid-template-columns: repeat(3, 1fr); }
-      .section-code__layout { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-    }
     @media (max-width: 768px) {
-      .section-hero { padding: 8rem 0 4rem; min-height: auto; }
-      .section-hero__heading { font-size: var(--text-4xl); }
-      .section-hero__ctas { flex-direction: column; align-items: flex-start; }
-      .why-grid { grid-template-columns: 1fr; }
-      .features-grid { grid-template-columns: repeat(2, 1fr); }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: 1fr; gap: var(--space-6); }
-      .section-cta__heading { font-size: var(--text-3xl); }
+      :root { --content-width: 100%; }
       .nav-links { display: none; }
-      .footer-grid { grid-template-columns: 1fr; }
+      .hero-heading { font-size: var(--text-3xl); }
+      .hero-stats { gap: var(--space-8); }
+      .section-code, .section-features, .section-endpoints, .section-social, .section-cta { padding: var(--space-12) 0; }
+      .endpoints-grid, .testimonials-grid, .footer-grid { grid-template-columns: 1fr; }
+      .feature-item { flex-wrap: wrap; gap: var(--space-2); }
+      .feature-name { min-width: unset; }
     }
+    @media (max-width: 480px) { .hero-heading { font-size: var(--text-2xl); } }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAV ===== -->
-  <header class="nav-header" role="banner">
-    <nav class="nav-header__inner container" aria-label="Main navigation">
-      <a href="/" class="nav-logo">
-        <svg viewBox="0 0 28 28" fill="none"><path d="M14 2L2 8l12 6 12-6-12-6z" fill="url(#ng)"/><path d="M2 20l12 6 12-6" stroke="url(#ng)" stroke-width="2" fill="none"/><path d="M2 14l12 6 12-6" stroke="url(#ng)" stroke-width="2" fill="none" opacity="0.5"/><defs><linearGradient id="ng" x1="2" y1="2" x2="26" y2="26"><stop stop-color="#A78BFA"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs></svg>
-        ayrshare
-      </a>
+  <header class="nav-header">
+    <div class="nav-header__inner">
+      <a class="nav-logo" href="/">ayr<span class="acc">share</span></a>
       <ul class="nav-links">
-        <li><a href="https://www.ayrshare.com/docs">Docs</a></li>
-        <li><a href="https://www.ayrshare.com/blog/">Blog</a></li>
-        <li><a href="https://www.ayrshare.com/pricing/">Pricing</a></li>
-        <li><a href="https://www.ayrshare.com/business-plan-for-multiple-users/">Business Plan</a></li>
-        <li><a href="https://app.ayrshare.com/login">Log In</a></li>
-        <li><a href="https://www.ayrshare.com/pricing/" class="btn btn-primary">Get Started</a></li>
+        <li><a class="nav-link" href="#">Docs</a></li>
+        <li><a class="nav-link" href="#">Blog</a></li>
+        <li><a class="nav-link" href="#">Pricing</a></li>
+        <li><a class="nav-link" href="#">Business Plan</a></li>
+        <li><a class="nav-link" href="#">Log In</a></li>
+        <li><a class="nav-cta" href="#">Get Started</a></li>
       </ul>
-    </nav>
+    </div>
   </header>
 
   <main>
-    <!-- ===== HERO ===== -->
+
+    <!-- HERO -->
     <section class="section-hero">
-      <div class="section-hero__bg">
-        <div id="hero-constellation" style="position:absolute;inset:0;z-index:0;" aria-hidden="true"></div>
-        <div class="section-hero__glow-1" aria-hidden="true"></div>
-        <div class="section-hero__glow-2" aria-hidden="true"></div>
-      </div>
-      <div class="section-hero__container">
-        <div class="section-hero__text fade-in">
-          <div class="section-hero__badge"><span class="dot"></span> 13+ social platforms supported</div>
-          <h1 class="section-hero__heading">Social Media<br><span class="gradient-text">APIs</span></h1>
-          <p class="section-hero__sub">One API to post, schedule, and analyze across every major social network. Build social features in minutes, not months.</p>
-          <div class="section-hero__ctas">
-            <a href="https://www.ayrshare.com/pricing/" class="btn btn-primary btn-lg">Get Started Now</a>
-            <a href="https://www.ayrshare.com/docs/introduction" class="btn btn-ghost btn-lg">Read the Docs</a>
-          </div>
+      <div id="hero-bg" class="hero-bg" aria-hidden="true"></div>
+      <div class="container">
+        <p class="hero-prompt"><span class="cmd">init</span> social-api --platforms=all --schedule=true</p>
+        <h1 class="hero-heading">
+          Social Media<br>
+          <span class="acc">APIs</span><span class="cursor"></span>
+        </h1>
+        <p class="hero-sub">One API to post, schedule, and analyze across 13+ social networks. Build social media features into your product in minutes, not months.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#">Get Started Free</a>
+          <a class="btn-ghost" href="#">Read the Docs</a>
         </div>
-        <div class="section-hero__code fade-in" data-delay="200">
-          <div class="code-header">
-            <span class="code-dot code-dot--red"></span>
-            <span class="code-dot code-dot--yellow"></span>
-            <span class="code-dot code-dot--green"></span>
-            <span class="code-filename">post.js</span>
-          </div>
-          <div class="code-body"><span class="kw">const</span> <span class="fn">API_KEY</span> <span class="punc">=</span> <span class="str">"Your API KEY"</span><span class="punc">;</span>
-
-<span class="fn">fetch</span><span class="punc">(</span><span class="url">"https://app.ayrshare.com/api/post"</span><span class="punc">,</span> <span class="punc">{</span>
-  <span class="prop">method</span><span class="punc">:</span> <span class="str">"POST"</span><span class="punc">,</span>
-  <span class="prop">headers</span><span class="punc">:</span> <span class="punc">{</span>
-    <span class="str">"Content-Type"</span><span class="punc">:</span> <span class="str">"application/json"</span><span class="punc">,</span>
-    <span class="str">"Authorization"</span><span class="punc">:</span> <span class="str">`Bearer <span class="url">${API_KEY}</span>`</span>
-  <span class="punc">},</span>
-  <span class="prop">body</span><span class="punc">:</span> <span class="fn">JSON</span><span class="punc">.</span><span class="fn">stringify</span><span class="punc">({</span>
-    <span class="prop">post</span><span class="punc">:</span> <span class="str">"Today is a great day!"</span><span class="punc">,</span>
-    <span class="prop">platforms</span><span class="punc">:</span> <span class="punc">[</span><span class="str">"twitter"</span><span class="punc">,</span> <span class="str">"facebook"</span><span class="punc">,</span>
-      <span class="str">"instagram"</span><span class="punc">,</span> <span class="str">"linkedin"</span><span class="punc">]</span>
-  <span class="punc">})</span>
-<span class="punc">});</span></div>
+        <div class="hero-stats">
+          <div><span class="hero-stat__number">13+</span><span class="hero-stat__label">Social platforms</span></div>
+          <div><span class="hero-stat__number">1M+</span><span class="hero-stat__label">Posts sent via API</span></div>
+          <div><span class="hero-stat__number">8</span><span class="hero-stat__label">SDK languages</span></div>
         </div>
       </div>
     </section>
 
-    <!-- ===== PLATFORMS ===== -->
-    <section class="section-platforms fade-in">
-      <p class="platforms-label container">Post to 13+ social platforms with a single API call</p>
-      <div class="platforms-row">
-        <span class="platform-icon">Facebook</span>
-        <span class="platform-icon">X / Twitter</span>
-        <span class="platform-icon">Instagram</span>
-        <span class="platform-icon">LinkedIn</span>
-        <span class="platform-icon">TikTok</span>
-        <span class="platform-icon">Bluesky</span>
-        <span class="platform-icon">Reddit</span>
-        <span class="platform-icon">YouTube</span>
-        <span class="platform-icon">Pinterest</span>
-        <span class="platform-icon">Threads</span>
-        <span class="platform-icon">Telegram</span>
-        <span class="platform-icon">Snapchat</span>
-        <span class="platform-icon">Google Business</span>
+    <div class="section-rule"></div>
+
+    <!-- PLATFORMS -->
+    <section class="section-platforms">
+      <div class="container">
+        <p class="platforms-label">Supported platforms</p>
+        <ul class="platforms-list">
+          <li class="platform-tag">Facebook</li>
+          <li class="platform-tag">X / Twitter</li>
+          <li class="platform-tag">Instagram</li>
+          <li class="platform-tag">LinkedIn</li>
+          <li class="platform-tag">TikTok</li>
+          <li class="platform-tag">Bluesky</li>
+          <li class="platform-tag">Reddit</li>
+          <li class="platform-tag">YouTube</li>
+          <li class="platform-tag">Pinterest</li>
+          <li class="platform-tag">Threads</li>
+          <li class="platform-tag">Telegram</li>
+          <li class="platform-tag">Snapchat</li>
+          <li class="platform-tag">Google Business</li>
+        </ul>
       </div>
     </section>
 
-    <!-- ===== STATS ===== -->
-    <section class="section-stats">
-      <div class="section-stats__glow" aria-hidden="true"></div>
-      <div class="stats-grid container fade-in">
-        <div class="stat-item">
-          <div class="stat-item__value gradient-text">13+</div>
-          <div class="stat-item__label">Social platforms</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-item__value gradient-text">Millions</div>
-          <div class="stat-item__label">Posts sent via API</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-item__value gradient-text">8</div>
-          <div class="stat-item__label">Languages supported</div>
-        </div>
-      </div>
-    </section>
+    <div class="section-rule"></div>
 
-    <div class="section-divider"></div>
-
-    <!-- ===== WHY CHOOSE ===== -->
-    <section class="section-why">
-      <div class="section-why__header container fade-in">
-        <p class="section-label">Why Ayrshare</p>
-        <h2 class="section-heading">Why Companies Choose<br><span class="gradient-text">Ayrshare</span></h2>
-        <p class="section-sub">Skip the months of integration work. Ship social media features today.</p>
-      </div>
-      <div class="why-grid container">
-        <div class="why-card fade-in">
-          <div class="why-card__icon">
-            <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <h3 class="why-card__title">Ship faster, spend less</h3>
-          <p class="why-card__desc">No need for a dedicated dev team to navigate complex approval processes or pay for API access. Get to market in days.</p>
-        </div>
-        <div class="why-card fade-in" data-delay="100">
-          <div class="why-card__icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h3 class="why-card__title">Reliable and trusted</h3>
-          <p class="why-card__desc">Special partnerships with social networks for features you can't get independently. Integrations work from day one.</p>
-        </div>
-        <div class="why-card fade-in" data-delay="200">
-          <div class="why-card__icon">
-            <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-          </div>
-          <h3 class="why-card__title">Zero maintenance</h3>
-          <p class="why-card__desc">We absorb the continuous stream of API changes from each social network. No permanent support team needed.</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- ===== FEATURES ===== -->
-    <section class="section-features">
-      <div class="section-features__glow" aria-hidden="true"></div>
-      <div class="section-features__header container fade-in">
-        <p class="section-label">API Capabilities</p>
-        <h2 class="section-heading">Powerful Social Media<br><span class="gradient-text">API Capabilities</span></h2>
-        <p class="section-sub">Everything you need to build social media features, exposed as simple REST endpoints.</p>
-      </div>
-      <div class="features-grid container">
-        <div class="feature-card fade-in">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-          <h3 class="feature-card__title">Send Posts</h3>
-          <p class="feature-card__desc">Post text, images, or video — immediately or scheduled</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="50">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></div>
-          <h3 class="feature-card__title">Delete Posts</h3>
-          <p class="feature-card__desc">Remove posts across all networks with one call</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="100">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg></div>
-          <h3 class="feature-card__title">Post History</h3>
-          <p class="feature-card__desc">Full history and status of every post with metadata</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="150">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-          <h3 class="feature-card__title">Comments</h3>
-          <p class="feature-card__desc">Retrieve, post, and manage comments on posts</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="200">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <h3 class="feature-card__title">Messaging</h3>
-          <p class="feature-card__desc">DMs, conversations, auto-responses, and webhooks</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="250">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
-          <h3 class="feature-card__title">Analytics</h3>
-          <p class="feature-card__desc">Likes, retweets, clicks, and advanced insights</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="300">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-          <h3 class="feature-card__title">Webhooks</h3>
-          <p class="feature-card__desc">Get notified when posts publish or events occur</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="350">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
-          <h3 class="feature-card__title">Integrations</h3>
-          <p class="feature-card__desc">Notion, Airtable, Make, Bubble, and more</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="400">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
-          <h3 class="feature-card__title">Auto Hashtags</h3>
-          <p class="feature-card__desc">AI-powered hashtag suggestions based on trending data</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="450">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
-          <h3 class="feature-card__title">Ads & Boosts</h3>
-          <p class="feature-card__desc">Convert posts into Facebook ads programmatically</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="500">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-          <h3 class="feature-card__title">Public Data</h3>
-          <p class="feature-card__desc">Get public info on any social account for your brand or competitors</p>
-        </div>
-        <div class="feature-card fade-in" data-delay="550">
-          <div class="feature-card__icon"><svg viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg></div>
-          <h3 class="feature-card__title">Reviews</h3>
-          <p class="feature-card__desc">Manage reviews on Facebook Pages and Google Business</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- ===== CODE EXAMPLES ===== -->
+    <!-- CODE EXAMPLES -->
     <section class="section-code">
-      <div class="section-code__layout container">
-        <div class="fade-in">
-          <p class="section-label">Developer Experience</p>
-          <h2 class="section-heading">Post with a few<br><span class="gradient-text">lines of code</span></h2>
-          <p class="section-sub" style="margin-bottom:var(--space-8)">One API call. Every platform. Node.js, Python, Go, PHP, cURL — pick your language.</p>
-          <div class="code-response">{ "status": "success", "posts": [{ "platform": "twitter", "postUrl": "https://x.com/..." }, { "platform": "facebook", "postUrl": "https://fb.com/..." }] }</div>
+      <div class="container">
+        <p class="section-label">Quick start</p>
+        <h2 class="section-heading fade-in">Post with a few<br>lines of code</h2>
+        <p class="section-sub fade-in">One API call. Every platform. Node.js, Python, Go, PHP, cURL — pick your language.</p>
+      </div>
+      <div class="container-wide">
+        <div class="code-tabs">
+          <button class="code-tab active" data-tab="node">Node.js</button>
+          <button class="code-tab" data-tab="python">Python</button>
+          <button class="code-tab" data-tab="curl">cURL</button>
+          <button class="code-tab" data-tab="go">Go</button>
         </div>
-        <div class="code-block-large fade-in" data-delay="200">
-          <div class="code-tabs">
-            <button class="code-tab code-tab--active" data-lang="node">Node.js</button>
-            <button class="code-tab" data-lang="python">Python</button>
-            <button class="code-tab" data-lang="curl">cURL</button>
-          </div>
-          <div class="code-panel code-panel--active" data-lang="node">
-            <div class="code-body"><span class="kw">const</span> response <span class="punc">=</span> <span class="kw">await</span> <span class="fn">fetch</span><span class="punc">(</span>
-  <span class="url">"https://app.ayrshare.com/api/post"</span><span class="punc">,</span> <span class="punc">{</span>
-    <span class="prop">method</span><span class="punc">:</span> <span class="str">"POST"</span><span class="punc">,</span>
-    <span class="prop">headers</span><span class="punc">:</span> <span class="punc">{</span>
-      <span class="str">"Content-Type"</span><span class="punc">:</span> <span class="str">"application/json"</span><span class="punc">,</span>
-      <span class="str">"Authorization"</span><span class="punc">:</span> <span class="str">`Bearer ${API_KEY}`</span>
-    <span class="punc">},</span>
-    <span class="prop">body</span><span class="punc">:</span> <span class="fn">JSON</span><span class="punc">.</span><span class="fn">stringify</span><span class="punc">({</span>
-      <span class="prop">post</span><span class="punc">:</span> <span class="str">"Today is a great day!"</span><span class="punc">,</span>
-      <span class="prop">platforms</span><span class="punc">:</span> <span class="punc">[</span>
-        <span class="str">"twitter"</span><span class="punc">,</span> <span class="str">"facebook"</span><span class="punc">,</span>
-        <span class="str">"instagram"</span><span class="punc">,</span> <span class="str">"linkedin"</span>
-      <span class="punc">]</span>
-    <span class="punc">})</span>
-  <span class="punc">}</span>
-<span class="punc">);</span>
+        <div class="code-panel active" id="tab-node"><pre><span class="cm">// npm install @ayrshare/social-post-api</span>
 
-<span class="kw">const</span> data <span class="punc">=</span> <span class="kw">await</span> response<span class="punc">.</span><span class="fn">json</span><span class="punc">();</span>
-<span class="fn">console</span><span class="punc">.</span><span class="fn">log</span><span class="punc">(</span>data<span class="punc">);</span></div>
-          </div>
-          <div class="code-panel" data-lang="python">
-            <div class="code-body"><span class="kw">import</span> requests
+<span class="kw">const</span> <span class="acc">SocialPost</span> = <span class="fn">require</span>(<span class="str">'@ayrshare/social-post-api'</span>);
+<span class="kw">const</span> api = <span class="kw">new</span> <span class="acc">SocialPost</span>(<span class="str">'YOUR_API_KEY'</span>);
 
-payload <span class="punc">=</span> <span class="punc">{</span>
-  <span class="str">'post'</span><span class="punc">:</span> <span class="str">'Today is a great day!'</span><span class="punc">,</span>
-  <span class="str">'platforms'</span><span class="punc">:</span> <span class="punc">[</span>
-    <span class="str">'twitter'</span><span class="punc">,</span> <span class="str">'facebook'</span><span class="punc">,</span>
-    <span class="str">'instagram'</span><span class="punc">,</span> <span class="str">'linkedin'</span>
-  <span class="punc">]</span>
-<span class="punc">}</span>
+<span class="kw">const</span> response = <span class="kw">await</span> api.<span class="fn">post</span>({
+  post: <span class="str">"Today is a great day!"</span>,
+  platforms: [<span class="str">"twitter"</span>, <span class="str">"facebook"</span>, <span class="str">"instagram"</span>, <span class="str">"linkedin"</span>],
+  scheduleDate: <span class="kw">new</span> <span class="acc">Date</span>().<span class="fn">toISOString</span>(),
+});
 
-headers <span class="punc">=</span> <span class="punc">{</span>
-  <span class="str">'Content-Type'</span><span class="punc">:</span> <span class="str">'application/json'</span><span class="punc">,</span>
-  <span class="str">'Authorization'</span><span class="punc">:</span> <span class="str">'Bearer API_KEY'</span>
-<span class="punc">}</span>
+console.<span class="fn">log</span>(response.<span class="prop">id</span>);       <span class="cm">// "post_abc123"</span>
+console.<span class="fn">log</span>(response.<span class="prop">postIds</span>);  <span class="cm">// { twitter: "...", facebook: "..." }</span></pre></div>
+        <div class="code-panel" id="tab-python"><pre><span class="cm"># pip install ayrshare</span>
 
-response <span class="punc">=</span> requests<span class="punc">.</span><span class="fn">post</span><span class="punc">(</span>
-  <span class="url">'https://app.ayrshare.com/api/post'</span><span class="punc">,</span>
-  <span class="prop">json</span><span class="punc">=</span>payload<span class="punc">,</span>
-  <span class="prop">headers</span><span class="punc">=</span>headers
-<span class="punc">)</span>
+<span class="kw">from</span> ayrshare <span class="kw">import</span> <span class="acc">SocialPost</span>
 
-<span class="fn">print</span><span class="punc">(</span>response<span class="punc">.</span><span class="fn">json</span><span class="punc">())</span></div>
-          </div>
-          <div class="code-panel" data-lang="curl">
-            <div class="code-body"><span class="fn">curl</span> <span class="punc">\</span>
-  <span class="prop">-H</span> <span class="str">"Authorization: Bearer API_KEY"</span> <span class="punc">\</span>
-  <span class="prop">-H</span> <span class="str">'Content-Type: application/json'</span> <span class="punc">\</span>
-  <span class="prop">-d</span> <span class="str">'{
+api = <span class="acc">SocialPost</span>(<span class="str">"YOUR_API_KEY"</span>)
+
+response = api.<span class="fn">post</span>({
+    <span class="str">"post"</span>: <span class="str">"Today is a great day!"</span>,
+    <span class="str">"platforms"</span>: [<span class="str">"twitter"</span>, <span class="str">"facebook"</span>, <span class="str">"instagram"</span>],
+    <span class="str">"scheduleDate"</span>: <span class="str">"2026-02-19T12:00:00Z"</span>,
+})
+
+<span class="fn">print</span>(response[<span class="str">"id"</span>])       <span class="cm"># post_abc123</span>
+<span class="fn">print</span>(response[<span class="str">"postIds"</span>])  <span class="cm"># {"twitter": "...", "facebook": "..."}</span></pre></div>
+        <div class="code-panel" id="tab-curl"><pre><span class="kw">curl</span> -X POST https://app.ayrshare.com/api/post \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -H <span class="str">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -d <span class="str">'{
     "post": "Today is a great day!",
-    "platforms": [
-      "twitter", "facebook",
-      "linkedin", "telegram"
-    ]
-  }'</span> <span class="punc">\</span>
-  <span class="prop">-X</span> POST <span class="url">https://app.ayrshare.com/api/post</span></div>
-          </div>
+    "platforms": ["twitter", "facebook", "instagram"],
+    "scheduleDate": "2026-02-19T12:00:00Z"
+  }'</span>
+
+<span class="cm"># Response: { "id": "post_abc123", "postIds": { ... } }</span></pre></div>
+        <div class="code-panel" id="tab-go"><pre><span class="cm">// go get github.com/ayrshare/ayrshare-go</span>
+
+<span class="kw">package</span> main
+
+<span class="kw">import</span> (
+  <span class="str">"fmt"</span>
+  ayrshare <span class="str">"github.com/ayrshare/ayrshare-go"</span>
+)
+
+<span class="kw">func</span> <span class="fn">main</span>() {
+  client := ayrshare.<span class="fn">NewClient</span>(<span class="str">"YOUR_API_KEY"</span>)
+  resp, _ := client.<span class="fn">Post</span>(ayrshare.PostRequest{
+    Post:      <span class="str">"Today is a great day!"</span>,
+    Platforms: []<span class="kw">string</span>{<span class="str">"twitter"</span>, <span class="str">"facebook"</span>},
+  })
+  fmt.<span class="fn">Println</span>(resp.ID) <span class="cm">// post_abc123</span>
+}</pre></div>
+      </div>
+    </section>
+
+    <div class="section-rule"></div>
+
+    <!-- FEATURES — vertical list, not card grid -->
+    <section class="section-features">
+      <div class="container">
+        <p class="section-label">API capabilities</p>
+        <h2 class="section-heading fade-in">Everything exposed<br>as REST endpoints</h2>
+        <p class="section-sub fade-in">No SDK required. If you can make an HTTP request, you can use Ayrshare.</p>
+
+        <ul class="feature-list">
+          <li class="feature-item"><span class="feature-num">01</span><span class="feature-name">POST /post</span><span class="feature-desc">Publish text, images, videos, or links to 13+ platforms simultaneously. Schedule for future delivery or post immediately.</span></li>
+          <li class="feature-item"><span class="feature-num">02</span><span class="feature-name">DELETE /post</span><span class="feature-desc">Remove posts across all networks with one API call. Supports bulk deletion by date range or post ID.</span></li>
+          <li class="feature-item"><span class="feature-num">03</span><span class="feature-name">GET /analytics <span class="tag">new</span></span><span class="feature-desc">Full history and engagement stats for every post — impressions, clicks, shares, and reach across all connected platforms.</span></li>
+          <li class="feature-item"><span class="feature-num">04</span><span class="feature-name">POST /comment</span><span class="feature-desc">Retrieve, add, and manage comments on any post programmatically. Moderate at scale without logging in.</span></li>
+          <li class="feature-item"><span class="feature-num">05</span><span class="feature-name">POST /message</span><span class="feature-desc">Send direct messages and platform DMs. Build inbox management and automated response workflows.</span></li>
+          <li class="feature-item"><span class="feature-num">06</span><span class="feature-name">POST /webhooks</span><span class="feature-desc">Real-time event notifications when posts publish, fail, or receive engagement. Build reactive pipelines.</span></li>
+          <li class="feature-item"><span class="feature-num">07</span><span class="feature-name">GET /auto-hashtags</span><span class="feature-desc">AI-powered hashtag suggestions based on trending data and your content. Maximize organic reach automatically.</span></li>
+          <li class="feature-item"><span class="feature-num">08</span><span class="feature-name">POST /ads-boost <span class="tag">pro</span></span><span class="feature-desc">Convert posts into Facebook Ads and Google Business promotions programmatically.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="section-rule"></div>
+
+    <!-- ENDPOINTS GRID -->
+    <section class="section-endpoints">
+      <div class="container-wide">
+        <p class="section-label">REST surface</p>
+        <h2 class="section-heading fade-in">Clean, predictable endpoints</h2>
+        <p class="section-sub fade-in">Standard REST conventions. JSON in, JSON out. No custom query languages or proprietary formats.</p>
+        <div class="endpoints-grid">
+          <div class="endpoint-card"><div class="endpoint-method post">POST</div><div class="endpoint-path">/api/post</div><div class="endpoint-desc">Create and publish a post to one or more platforms</div></div>
+          <div class="endpoint-card"><div class="endpoint-method get">GET</div><div class="endpoint-path">/api/post</div><div class="endpoint-desc">Retrieve post history, status, and platform-specific IDs</div></div>
+          <div class="endpoint-card"><div class="endpoint-method del">DELETE</div><div class="endpoint-path">/api/post</div><div class="endpoint-desc">Delete a post from all platforms by Ayrshare post ID</div></div>
+          <div class="endpoint-card"><div class="endpoint-method get">GET</div><div class="endpoint-path">/api/analytics/post</div><div class="endpoint-desc">Fetch engagement metrics for any post across all platforms</div></div>
+          <div class="endpoint-card"><div class="endpoint-method post">POST</div><div class="endpoint-path">/api/comment</div><div class="endpoint-desc">Add or reply to comments on published posts</div></div>
+          <div class="endpoint-card"><div class="endpoint-method get">GET</div><div class="endpoint-path">/api/comment</div><div class="endpoint-desc">Retrieve all comments for a given post or profile</div></div>
+          <div class="endpoint-card"><div class="endpoint-method get">GET</div><div class="endpoint-path">/api/user</div><div class="endpoint-desc">Fetch connected profile details, follower counts, bios</div></div>
+          <div class="endpoint-card"><div class="endpoint-method post">POST</div><div class="endpoint-path">/api/shorten</div><div class="endpoint-desc">Shorten URLs with click tracking before including in posts</div></div>
         </div>
       </div>
     </section>
 
-    <div class="section-divider"></div>
+    <div class="section-rule"></div>
 
-    <!-- ===== TESTIMONIALS ===== -->
-    <section class="section-testimonials">
-      <div class="section-testimonials__header container fade-in">
+    <!-- TESTIMONIALS -->
+    <section class="section-social">
+      <div class="container">
         <p class="section-label">Trusted by developers</p>
-        <h2 class="section-heading">What developers<br><span class="gradient-text">are saying</span></h2>
-      </div>
-      <div class="testimonials-grid container">
-        <div class="testimonial-card fade-in">
-          <p class="testimonial-card__quote">The Ayrshare social media API is so much better than all the other options out there. And I love the docs.</p>
-          <p class="testimonial-card__author"><strong>CTO</strong> &mdash; SaaS Real Estate Platform</p>
-        </div>
-        <div class="testimonial-card fade-in" data-delay="100">
-          <p class="testimonial-card__quote">We saved a ton of time integrating Ayrshare. It's a no brainer for any product that needs social posting.</p>
-          <p class="testimonial-card__author"><strong>Head of Product</strong> &mdash; Digital Asset Platform</p>
+        <h2 class="section-heading fade-in">What teams are shipping</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card"><p class="testimonial-text">The Ayrshare social media API is so much better than all the other options out there. And I love the docs.</p><div class="testimonial-author"><strong>CTO</strong> — SaaS Real Estate Platform</div></div>
+          <div class="testimonial-card"><p class="testimonial-text">We saved a ton of time integrating Ayrshare. It's a no-brainer for any product that needs social posting.</p><div class="testimonial-author"><strong>Head of Product</strong> — Digital Asset Platform</div></div>
+          <div class="testimonial-card"><p class="testimonial-text">Replaced three separate social media APIs with one. Our integration went from 3 weeks to 2 days.</p><div class="testimonial-author"><strong>Senior Engineer</strong> — Marketing SaaS</div></div>
+          <div class="testimonial-card"><p class="testimonial-text">Webhooks + scheduling + analytics all in one place. We ditched our custom social pipeline entirely.</p><div class="testimonial-author"><strong>Tech Lead</strong> — B2B Content Platform</div></div>
         </div>
       </div>
     </section>
 
-    <!-- ===== CTA ===== -->
+    <div class="section-rule"></div>
+
+    <!-- CTA -->
     <section class="section-cta">
-      <div class="section-cta__glow" aria-hidden="true"></div>
-      <div class="section-cta__content container fade-in">
-        <h2 class="section-cta__heading">Start posting<br><span class="gradient-text">today</span></h2>
-        <p class="section-cta__sub">It's easy to get started. One API key, every platform, unlimited possibilities.</p>
-        <div class="section-cta__ctas">
-          <a href="https://www.ayrshare.com/pricing/" class="btn btn-primary btn-lg">Get Started Now</a>
-          <a href="https://www.ayrshare.com/docs/introduction" class="btn btn-ghost btn-lg">Read the Docs</a>
+      <div class="container">
+        <p class="cta-pre">ready to ship?</p>
+        <h2 class="cta-heading">Start posting today</h2>
+        <p class="cta-sub">Free API key. No credit card. 50 posts/month included.</p>
+        <div class="cta-actions">
+          <a class="btn-primary" href="#">Get Free API Key</a>
+          <a class="btn-ghost" href="#">Read Documentation</a>
         </div>
+        <p class="cta-note">Free plan includes 50 posts/month. Upgrade anytime.</p>
       </div>
     </section>
+
   </main>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
-    <div class="footer-grid container">
-      <div class="footer-brand">
-        <a href="/" class="nav-logo" style="font-size:var(--text-lg);">
-          <svg viewBox="0 0 28 28" width="24" height="24" fill="none"><path d="M14 2L2 8l12 6 12-6-12-6z" fill="url(#fg)"/><path d="M2 20l12 6 12-6" stroke="url(#fg)" stroke-width="2" fill="none"/><path d="M2 14l12 6 12-6" stroke="url(#fg)" stroke-width="2" fill="none" opacity="0.5"/><defs><linearGradient id="fg" x1="2" y1="2" x2="26" y2="26"><stop stop-color="#A78BFA"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs></svg>
-          ayrshare
-        </a>
-        <p class="footer-brand__desc">One API to rule them all. Powerful social media APIs for developers and businesses of all sizes.</p>
+    <div class="container-wide">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">ayrshare</div>
+          <p class="footer-tagline">One API to rule them all. Powerful social media APIs for developers and businesses.</p>
+        </div>
+        <div>
+          <div class="footer-col-label">Product</div>
+          <ul class="footer-links">
+            <li><a class="footer-link" href="#">Documentation</a></li>
+            <li><a class="footer-link" href="#">Pricing</a></li>
+            <li><a class="footer-link" href="#">Business Plan</a></li>
+            <li><a class="footer-link" href="#">Status</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Developers</div>
+          <ul class="footer-links">
+            <li><a class="footer-link" href="#">API Reference</a></li>
+            <li><a class="footer-link" href="#">Node.js SDK</a></li>
+            <li><a class="footer-link" href="#">Python SDK</a></li>
+            <li><a class="footer-link" href="#">GitHub</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-label">Company</div>
+          <ul class="footer-links">
+            <li><a class="footer-link" href="#">About</a></li>
+            <li><a class="footer-link" href="#">Blog</a></li>
+            <li><a class="footer-link" href="#">Privacy</a></li>
+            <li><a class="footer-link" href="#">Terms</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4 class="footer-col__title">Product</h4>
-        <ul class="footer-col__links">
-          <li><a href="https://www.ayrshare.com/docs">Documentation</a></li>
-          <li><a href="https://www.ayrshare.com/pricing/">Pricing</a></li>
-          <li><a href="https://www.ayrshare.com/business-plan-for-multiple-users/">Business Plan</a></li>
-          <li><a href="https://www.ayrshare.com/docs/additional/status">Status</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4 class="footer-col__title">Developers</h4>
-        <ul class="footer-col__links">
-          <li><a href="https://www.ayrshare.com/docs/introduction">API Reference</a></li>
-          <li><a href="https://www.ayrshare.com/docs/packages-guides/nodejs">Node.js SDK</a></li>
-          <li><a href="https://www.ayrshare.com/docs/packages-guides/python">Python SDK</a></li>
-          <li><a href="https://github.com/ayrshare">GitHub</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4 class="footer-col__title">Company</h4>
-        <ul class="footer-col__links">
-          <li><a href="https://www.ayrshare.com/about/">About</a></li>
-          <li><a href="https://www.ayrshare.com/blog/">Blog</a></li>
-          <li><a href="https://www.ayrshare.com/privacy/">Privacy</a></li>
-          <li><a href="https://www.ayrshare.com/terms/">Terms</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom container">
-      <p class="footer-bottom__copy">&copy; 2026 Ayrshare &mdash; Nevermind Solutions LLC</p>
-      <div class="footer-socials">
-        <a href="https://github.com/ayrshare" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
-        <a href="https://x.com/ayrshare" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-        <a href="https://www.linkedin.com/company/ayrshare/" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Ayrshare — Nevermind Solutions LLC</span>
+        <div class="footer-socials">
+          <a class="footer-social" href="#">GitHub</a>
+          <a class="footer-social" href="#">X</a>
+          <a class="footer-social" href="#">LinkedIn</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- ===== JAVASCRIPT ===== -->
-  <script src="../assets/js/constellation.js"></script>
+  <script src="../assets/js/code-rain.js"></script>
   <script>
-    /* Nav scroll morph */
-    (function() {
-      var nav = document.querySelector('.nav-header');
-      if (!nav) return;
-      var scrolled = false;
-      function onScroll() {
-        var shouldScroll = window.scrollY > 80;
-        if (shouldScroll !== scrolled) {
-          scrolled = shouldScroll;
-          nav.classList.toggle('nav-header--scrolled', scrolled);
-        }
-        requestAnimationFrame(onScroll);
-      }
-      requestAnimationFrame(onScroll);
-    })();
+    // Code Rain hero background
+    if (typeof initCodeRain === 'function') {
+      initCodeRain('hero-bg', { color: '34,211,238', fontSize: 13, speed: 0.4, density: 0.35 });
+    }
 
-    /* Fade-in on scroll */
-    (function() {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            var delay = parseInt(entry.target.dataset.delay) || 0;
-            setTimeout(function() {
-              entry.target.classList.add('fade-in--visible');
-            }, delay);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
-    })();
-
-    /* Hero constellation */
-    initConstellation('hero-constellation', {
-      count: 90,
-      color: '124,58,237',
-      accentColor: '6,182,212',
-      lineDistance: 140,
-      speed: 0.3
+    // Code tab switcher
+    document.querySelectorAll('.code-tab').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.code-tab').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('.code-panel').forEach(function(p) { p.classList.remove('active'); });
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
     });
 
-    /* Code tab switching */
-    document.querySelectorAll('.code-tab').forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        var lang = this.dataset.lang;
-        var block = this.closest('.code-block-large');
-        block.querySelectorAll('.code-tab').forEach(function(t) { t.classList.remove('code-tab--active'); });
-        block.querySelectorAll('.code-panel').forEach(function(p) { p.classList.remove('code-panel--active'); });
-        this.classList.add('code-tab--active');
-        block.querySelector('.code-panel[data-lang="' + lang + '"]').classList.add('code-panel--active');
+    // Mechanical entrance animations (opacity snap via IntersectionObserver)
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
       });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.fade-in, .feature-item, .testimonial-card').forEach(function(el) {
+      observer.observe(el);
     });
   </script>
 </body>
